@@ -8,13 +8,40 @@ import java.util.Scanner;
 public class EmpresaCliente {
     private String nomeEmpresa;
     private String cnpjEmpresa;
-    private Matriz nomeMatriz;
-    private Filial nomeFilial;
+    private String nomeMatriz;
+    private String filialAssociada;
     private String nomeCidade;
     private String nomeEstado;
     private Regional regionalAssociada;
     private Segmento segmentoEmpresa;
-    private final ArrayList<Trilha> listaTrilhasEmpresa = new ArrayList<Trilha>();
+    private final ArrayList<Trilha> listaTrilhasAssociadas = new ArrayList<Trilha>();
+    private static ArrayList<EmpresaCliente> listaEmpresas = new ArrayList<>();
+
+    public EmpresaCliente(String nomeEmpresa, String cnpjEmpresa, String nomeMatriz,String nomeCidade, String nomeEstado, Regional regionalAssociada, Segmento segmentoEmpresa) {
+        this.nomeEmpresa = nomeEmpresa;
+        if(validarCNPJ(cnpjEmpresa)){
+            this.cnpjEmpresa = cnpjEmpresa;
+        }else{
+            solicitarCNPJ();
+        }
+        this.nomeMatriz = nomeMatriz;
+        if(isMatriz(this.cnpjEmpresa)){
+            this.filialAssociada = null;
+        }else{
+            solicitarNomeFilial();
+        }
+        this.nomeCidade = nomeCidade;
+        this.nomeEstado = nomeEstado;
+        this.regionalAssociada = regionalAssociada;
+        this.segmentoEmpresa = segmentoEmpresa;
+    }
+
+    public void solicitarNomeFilial(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Digite o nome da filial:");
+        String filial = sc.next();
+        this.filialAssociada = filial;
+    }
 
     public static String cnpjFormatado(String cnpjBruto){
         return cnpjBruto.substring(0, 2) + "." + cnpjBruto.substring(2, 5) + "." + cnpjBruto.substring(5, 8) + "."
@@ -110,7 +137,20 @@ public class EmpresaCliente {
         return nomeEmpresa;
     }
 
+    public static EmpresaCliente procuraEmpresa(String cnpj) {
+        String cnpjProcurar = cnpjBruto(cnpj);
+        for (EmpresaCliente a : listaEmpresas) {
+            if(getCnpjEmpresa(a).equals(cnpjProcurar))
+                return a;
+        }
+        return null;
+    }
+
+    public static String getCnpjEmpresa(EmpresaCliente e) {
+        return cnpjBruto(e.cnpjEmpresa);
+    }
+
     public void addTrilha(Trilha t){
-        listaTrilhasEmpresa.add(t);
+        listaTrilhasAssociadas.add(t);
     }
 }

@@ -1,5 +1,6 @@
 import enums.Perfil;
 
+import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -11,6 +12,42 @@ public class Usuario {
     private String emailUsuario;
     private String senhaUsuario;
     private Perfil perfilUsuario;
+    static HashMap <String,String> loginSenha = new HashMap<>();
+
+    public Usuario(String nomeUsuario, String cpfUsuario, String emailUsuario, String senhaUsuario, Perfil perfilUsuario) {
+        this.nomeUsuario = nomeUsuario;
+        if(validarCPF(cpfUsuario)){
+            this.cpfUsuario = cpfUsuario;
+        }else{
+            solicitarCPF();
+        }
+        if(validaEmail(emailUsuario)){
+            this.emailUsuario = emailUsuario;
+        }else{
+            solicitaEmail();
+        }
+        if(validarSenha(senhaUsuario)){
+            this.senhaUsuario = senhaUsuario;
+        }else{
+            solicitaSenha();
+        }
+        this.perfilUsuario = perfilUsuario;
+        loginSenha.put(this.emailUsuario,this.senhaUsuario);
+    }
+
+    public static void login(String emailEntrada, String senhaEntrada){
+        Scanner sc = new Scanner(System.in);
+        boolean loginInvalido = true;
+        while(loginInvalido){
+            System.out.printf("Digite o email:");
+            String emailTeste = sc.next();
+            System.out.printf("Digite a senha:");
+            String senhaTeste = sc.next();
+            if(loginSenha.containsKey(emailTeste) && loginSenha.containsValue(senhaTeste) && loginSenha.get(emailEntrada).equals(senhaTeste)){
+                loginInvalido = false;
+            }
+        }
+    }
 
     public static boolean validaEmail(String emailTeste){
         boolean emailValido = false;
