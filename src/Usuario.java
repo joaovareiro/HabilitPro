@@ -1,20 +1,19 @@
-import enums.Perfil;
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Usuario {
+public abstract class Usuario {
     private String nomeUsuario;
     private String cpfUsuario;
     private String emailUsuario;
     private String senhaUsuario;
-    private Perfil perfilUsuario;
     static HashMap <String,String> loginSenha = new HashMap<>();
+    static final ArrayList<Usuario> listaUsuariosGeral = new ArrayList<Usuario>();
 
-    public Usuario(String nomeUsuario, String cpfUsuario, String emailUsuario, String senhaUsuario, Perfil perfilUsuario) {
+    public Usuario(String nomeUsuario, String cpfUsuario, String emailUsuario, String senhaUsuario) {
         this.nomeUsuario = nomeUsuario;
         if(validarCPF(cpfUsuario)){
             this.cpfUsuario = cpfUsuario;
@@ -31,8 +30,19 @@ public class Usuario {
         }else{
             solicitaSenha();
         }
-        this.perfilUsuario = perfilUsuario;
         loginSenha.put(this.emailUsuario,this.senhaUsuario);
+    }
+
+    public static Usuario procuraUsuario(String nomeUsuarioEntrada) {
+        for (Usuario a : listaUsuariosGeral) {
+            if(a.getNomeUsuario().equals(nomeUsuarioEntrada))
+                return a;
+        }
+        return null;
+    }
+
+    public String getNomeUsuario() {
+        return nomeUsuario;
     }
 
     public static void login(String emailEntrada, String senhaEntrada){
@@ -107,7 +117,8 @@ public class Usuario {
 
     //o processo de validação do CPF veio da fonte https://www.devmedia.com.br/validando-o-cpf-em-uma-aplicacao-java/22097
     //estou usando como se fosse um método de uma biblioteca interna
-    public static boolean validarCPF(String cpfValidar){
+    public static boolean validarCPF(String cpfEntrada){
+        String cpfValidar = cpfBruto(cpfEntrada);
         if (cpfValidar.equals("00000000000") ||
                 cpfValidar.equals("11111111111") ||
                 cpfValidar.equals("22222222222") || cpfValidar.equals("33333333333") ||
@@ -161,7 +172,7 @@ public class Usuario {
             System.out.println("Por favor, digite um CPF valido");
             String cpfTeste = sc.next();
             if (validarCPF(cpfTeste) == true) {
-                this.cpfUsuario = cpfTeste;
+                this.cpfUsuario = cpfBruto(cpfTeste);
                 cpfIncorreto = false;
             }else{
                 cpfIncorreto = true;
