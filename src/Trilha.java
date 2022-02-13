@@ -25,6 +25,7 @@ public class Trilha {
         this.anotacoesTrilha = anotacoesTrilha;
         this.nomeTrilha = this.ocupacao.getNomeOcupacao() + this.empresaCliente.getNomeEmpresa() + this.ocupacao.getNumeroSequencial() + this.anoCorrente;
         this.apelido = this.ocupacao.getNomeOcupacao() + this.ocupacao.getNumeroSequencial();
+        listaTrilhasGeral.add(this);
     }
 
     public static Ocupacao procuraOcupacao(String ocupacaoNome) {

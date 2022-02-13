@@ -4,12 +4,14 @@ import enums.Segmento;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class EmpresaCliente {
     private String nomeEmpresa;
     private String cnpjEmpresa;
     private String nomeMatriz;
-    private String filialAssociada;
+    private String nomefilialAssociada;
     private String nomeCidade;
     private String nomeEstado;
     private Regional regionalAssociada;
@@ -17,8 +19,7 @@ public class EmpresaCliente {
     private final ArrayList<Trilha> listaTrilhasAssociadas = new ArrayList<Trilha>();
     private static ArrayList<EmpresaCliente> listaEmpresas = new ArrayList<>();
 
-    public EmpresaCliente(String nomeEmpresa, String cnpjEmpresa, String nomeMatriz,String nomeCidade, String nomeEstado, Regional regionalAssociada, Segmento segmentoEmpresa) {
-        this.nomeEmpresa = nomeEmpresa;
+    public EmpresaCliente( String nomeMatriz, String nomefilialAssociada, String cnpjEmpresa, String nomeCidade, String nomeEstado, Regional regionalAssociada, Segmento segmentoEmpresa) {
         if(validarCNPJ(cnpjEmpresa)){
             this.cnpjEmpresa = cnpjEmpresa;
         }else{
@@ -26,9 +27,11 @@ public class EmpresaCliente {
         }
         this.nomeMatriz = nomeMatriz;
         if(isMatriz(this.cnpjEmpresa)){
-            this.filialAssociada = null;
+            this.nomeEmpresa = this.nomeMatriz;
+            this.nomefilialAssociada = null;
         }else{
-            solicitarNomeFilial();
+            this.nomefilialAssociada = nomefilialAssociada;
+            this.nomeEmpresa = this.nomefilialAssociada;
         }
         this.nomeCidade = nomeCidade;
         this.nomeEstado = nomeEstado;
@@ -36,19 +39,7 @@ public class EmpresaCliente {
         this.segmentoEmpresa = segmentoEmpresa;
     }
 
-    public void solicitarNomeFilial(){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Digite o nome da filial:");
-        String filial = sc.next();
-        this.filialAssociada = filial;
-    }
-
-    public static String cnpjFormatado(String cnpjBruto){
-        return cnpjBruto.substring(0, 2) + "." + cnpjBruto.substring(2, 5) + "." + cnpjBruto.substring(5, 8) + "."
-                + cnpjBruto.substring(8, 12) + "-" + cnpjBruto.substring(12, 14);
-    }
-
-    public static boolean isMatriz(String cnpjTeste){
+  public static boolean isMatriz(String cnpjTeste){
          boolean matriz = false;
         if(EmpresaCliente.cnpjBruto(cnpjTeste).substring(8, 12).equals("0001")){
             matriz = true;
@@ -56,60 +47,16 @@ public class EmpresaCliente {
         return matriz;
     }
 
-    //o processo de validação do CNPJ veio da fonte https://www.devmedia.com.br/validando-o-cnpj-em-uma-aplicacao-java/22374
-    //estou usando como se fosse um método de uma biblioteca interna
-    public static boolean validarCNPJ(String cnpjEntrada) {
-        String cnpjValidar = cnpjBruto(cnpjEntrada);
 
-        if (cnpjValidar.equals("00000000000000") || cnpjValidar.equals("11111111111111") ||
-                cnpjValidar.equals("22222222222222") || cnpjValidar.equals("33333333333333") ||
-                cnpjValidar.equals("44444444444444") || cnpjValidar.equals("55555555555555") ||
-                cnpjValidar.equals("66666666666666") || cnpjValidar.equals("77777777777777") ||
-                cnpjValidar.equals("88888888888888") || cnpjValidar.equals("99999999999999") ||
-                (cnpjValidar.length() != 14))
-            return(false);
-
-        char dig13, dig14;
-        int sm, i, r, num, peso;
-        try {
-            sm = 0;
-            peso = 2;
-
-            for (i=11; i>=0; i--) {
-
-                num = (int)(cnpjValidar.charAt(i) - 48);
-                sm = sm + (num * peso);
-                peso = peso + 1;
-                if (peso == 10)
-                    peso = 2;
-            }
-
-            r = sm % 11;
-            if ((r == 0) || (r == 1))
-                dig13 = '0';
-            else dig13 = (char)((11-r) + 48);
-
-            sm = 0;
-            peso = 2;
-            for (i=12; i>=0; i--) {
-                num = (int)(cnpjValidar.charAt(i)- 48);
-                sm = sm + (num * peso);
-                peso = peso + 1;
-                if (peso == 10)
-                    peso = 2;
-            }
-
-            r = sm % 11;
-            if ((r == 0) || (r == 1))
-                dig14 = '0';
-            else dig14 = (char)((11-r) + 48);
-
-            if ((dig13 == cnpjValidar.charAt(12)) && (dig14 == cnpjValidar.charAt(13)))
-                return(true);
-            else return(false);
-        } catch (InputMismatchException erro) {
-            return(false);
+    public static boolean validarCNPJ(String emailTeste){
+        boolean emailValido = false;
+        String regx = "(\\d{2})+.+(\\d{3})+.+(\\d{3})+/+(\\d{4})+-+(\\d{2})";
+        Pattern padrao = Pattern.compile(regx);
+        Matcher validador = padrao.matcher(emailTeste);
+        if(validador.matches()){
+            emailValido = true;
         }
+        return emailValido;
     }
 
     public void solicitarCNPJ() {
@@ -128,6 +75,7 @@ public class EmpresaCliente {
     }
 
 
+
     public static String cnpjBruto(String cnpjFormatado){
         return cnpjFormatado.replaceAll("[^0-9]", "");
     }
@@ -137,17 +85,12 @@ public class EmpresaCliente {
         return nomeEmpresa;
     }
 
-    public static EmpresaCliente procuraEmpresa(String cnpj) {
-        String cnpjProcurar = cnpjBruto(cnpj);
+    public static EmpresaCliente procuraEmpresa(String nome) {
         for (EmpresaCliente a : listaEmpresas) {
-            if(getCnpjEmpresa(a).equals(cnpjProcurar))
+            if(a.getNomeEmpresa().equals(nome))
                 return a;
         }
         return null;
-    }
-
-    public static String getCnpjEmpresa(EmpresaCliente e) {
-        return cnpjBruto(e.cnpjEmpresa);
     }
 
     public void addTrilha(Trilha t){

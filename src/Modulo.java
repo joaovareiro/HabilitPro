@@ -18,7 +18,7 @@ public class Modulo {
     private OffsetDateTime dataInicioAvaliacao;
     private OffsetDateTime dataFimAvalicao;
 
-    public Modulo(String trilhaAssociada, String nomeModulo, String habilidadesTrabalhadas, String tarefaValidacaoModulo, Status statusModulo, int notaModulo, String anotacoesModulo, String dataInicioModulo, String dataInicioAvaliacao, String dataFimAvalicao) {
+    public Modulo(String trilhaAssociada, String nomeModulo, String habilidadesTrabalhadas, String tarefaValidacaoModulo, String anotacoesModulo, String dataInicioModulo, String dataInicioAvaliacao, String dataFimAvalicao) {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         if(procuraTrilha(trilhaAssociada)!=null){
             this.trilhaAssociada = procuraTrilha(trilhaAssociada);
@@ -28,21 +28,19 @@ public class Modulo {
         this.nomeModulo = nomeModulo;
         this.habilidadesTrabalhadas = habilidadesTrabalhadas;
         this.tarefaValidacaoModulo = tarefaValidacaoModulo;
-        checkStatusModulo();
-        this.notaModulo = notaModulo;
         this.anotacoesModulo = anotacoesModulo;
         this.dataInicioModulo = OffsetDateTime.parse(dataInicioModulo,format);
         this.dataInicioAvaliacao = OffsetDateTime.parse(dataInicioAvaliacao,format);
         this.dataFimAvalicao = OffsetDateTime.parse(dataInicioAvaliacao,format).plusDays(10);
         this.prazoAvaliacao = (int) DAYS.between(this.dataFimAvalicao,this.dataInicioAvaliacao);
+        setStatusModulo();
     }
 
     public void setDataFimAvaliacao(String dataFimAvaliacao){
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         this.dataFimAvalicao = OffsetDateTime.parse(dataFimAvaliacao,format);
     }
-
-    public void checkStatusModulo(){
+    public void setStatusModulo(){
         if(OffsetDateTime.now().isBefore(dataInicioModulo)){
             this.statusModulo = Status.CursoNaoIniciado;
         }else if(OffsetDateTime.now().isAfter(dataInicioModulo) && OffsetDateTime.now().isBefore(dataInicioAvaliacao)){
