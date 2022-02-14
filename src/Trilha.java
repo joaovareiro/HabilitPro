@@ -13,6 +13,7 @@ public class Trilha {
     static final ArrayList<Trilha> listaTrilhasGeral = new ArrayList<Trilha>();
     private int nivelSatisfacao;
 
+
     public Trilha(EmpresaCliente empresaCliente, String nomeOcupacao, String anotacoesTrilha) {
         this.empresaCliente = empresaCliente;
         if(procuraOcupacao(nomeOcupacao)!=null){
@@ -23,9 +24,10 @@ public class Trilha {
         }
         this.anoCorrente = LocalDate.now().getYear();
         this.anotacoesTrilha = anotacoesTrilha;
-        this.nomeTrilha = this.ocupacao.getNomeOcupacao() + this.empresaCliente.getNomeEmpresa() + this.ocupacao.getNumeroSequencial() + this.anoCorrente;
-        this.apelido = this.ocupacao.getNomeOcupacao() + this.ocupacao.getNumeroSequencial();
+        this.nomeTrilha = this.ocupacao.getNomeOcupacao() + this.empresaCliente.getNomeEmpresa() + empresaCliente.getNumeroSequencialEmpresa() + this.ocupacao.getNumeroSequencialOcupacao()  + this.anoCorrente;
+        this.apelido = this.ocupacao.getNomeOcupacao() + empresaCliente.getNumeroSequencialEmpresa() + this.ocupacao.getNumeroSequencialOcupacao() ;
         listaTrilhasGeral.add(this);
+
     }
 
     public static Ocupacao procuraOcupacao(String ocupacaoNome) {

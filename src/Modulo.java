@@ -1,5 +1,9 @@
 import enums.Status;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
@@ -19,6 +23,7 @@ public class Modulo {
     private OffsetDateTime dataFimAvalicao;
 
     public Modulo(String trilhaAssociada, String nomeModulo, String habilidadesTrabalhadas, String tarefaValidacaoModulo, String anotacoesModulo, String dataInicioModulo, String dataInicioAvaliacao, String dataFimAvalicao) {
+        ZoneId fusoSP = ZoneId.of("America/Sao_Paulo");
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         if(procuraTrilha(trilhaAssociada)!=null){
             this.trilhaAssociada = procuraTrilha(trilhaAssociada);
@@ -28,10 +33,10 @@ public class Modulo {
         this.nomeModulo = nomeModulo;
         this.habilidadesTrabalhadas = habilidadesTrabalhadas;
         this.tarefaValidacaoModulo = tarefaValidacaoModulo;
-        this.anotacoesModulo = anotacoesModulo;
-        this.dataInicioModulo = OffsetDateTime.parse(dataInicioModulo,format);
-        this.dataInicioAvaliacao = OffsetDateTime.parse(dataInicioAvaliacao,format);
-        this.dataFimAvalicao = OffsetDateTime.parse(dataInicioAvaliacao,format).plusDays(10);
+        this.anotacoesModulo = anotacoesModulo;//
+        this.dataInicioModulo = OffsetDateTime.from(LocalDate.parse(dataInicioModulo,format).atStartOfDay().atZone(fusoSP));
+        this.dataInicioAvaliacao = OffsetDateTime.from(LocalDate.parse(dataInicioModulo,format).atStartOfDay().atZone(fusoSP));
+        this.dataFimAvalicao = OffsetDateTime.from(LocalDate.parse(dataFimAvalicao,format).atStartOfDay().atZone(fusoSP)).plusDays(10);
         this.prazoAvaliacao = (int) DAYS.between(this.dataFimAvalicao,this.dataInicioAvaliacao);
         setStatusModulo();
     }
@@ -82,16 +87,20 @@ public class Modulo {
     public void setNotaModulo(int notaModulo) {
         Scanner sc = new Scanner(System.in);
         boolean notaInvalida = true;
+        if (notaModulo >= 1 && notaModulo <=5) {
+            this.notaModulo = notaModulo;
+            notaInvalida = false;
+        }else{
         while(notaInvalida){
             System.out.println("Digite uma nota de 1 a 5");
             int notaTeste = sc.nextInt();
             if (notaTeste >= 1 && notaTeste <=5) {
-                this.notaModulo = notaModulo;
+                this.notaModulo = notaTeste;
                 notaInvalida = false;
             } else {
                 notaInvalida = true;
+                }
             }
         }
     }
-
 }

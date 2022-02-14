@@ -2,7 +2,6 @@ import enums.Regional;
 import enums.Segmento;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,8 +17,12 @@ public class EmpresaCliente {
     private Segmento segmentoEmpresa;
     private final ArrayList<Trilha> listaTrilhasAssociadas = new ArrayList<Trilha>();
     private static ArrayList<EmpresaCliente> listaEmpresas = new ArrayList<>();
+    private static int auxEmpresaCliente = 0;
+    private int numeroSequencialEmpresa = 0;
 
-    public EmpresaCliente( String nomeMatriz, String nomefilialAssociada, String cnpjEmpresa, String nomeCidade, String nomeEstado, Regional regionalAssociada, Segmento segmentoEmpresa) {
+
+
+    public EmpresaCliente(String nomeMatriz, String nomefilialAssociada, String cnpjEmpresa, String nomeCidade, String nomeEstado, Regional regionalAssociada, Segmento segmentoEmpresa) {
         if(validarCNPJ(cnpjEmpresa)){
             this.cnpjEmpresa = cnpjEmpresa;
         }else{
@@ -37,16 +40,21 @@ public class EmpresaCliente {
         this.nomeEstado = nomeEstado;
         this.regionalAssociada = regionalAssociada;
         this.segmentoEmpresa = segmentoEmpresa;
+        auxEmpresaCliente++;
+        this.numeroSequencialEmpresa = auxEmpresaCliente;
     }
 
-  public static boolean isMatriz(String cnpjTeste){
-         boolean matriz = false;
-        if(EmpresaCliente.cnpjBruto(cnpjTeste).substring(8, 12).equals("0001")){
-            matriz = true;
+      public static boolean isMatriz(String cnpjTeste){
+             boolean matriz = false;
+            if(EmpresaCliente.cnpjBruto(cnpjTeste).substring(8, 12).equals("0001")){
+                matriz = true;
+                }
+            return matriz;
         }
-        return matriz;
-    }
 
+    public int getNumeroSequencialEmpresa() {
+        return numeroSequencialEmpresa;
+    }
 
     public static boolean validarCNPJ(String emailTeste){
         boolean emailValido = false;
