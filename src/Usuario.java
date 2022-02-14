@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,33 +30,45 @@ public abstract class Usuario {
             solicitaSenha();
         }
         loginSenha.put(this.emailUsuario,this.senhaUsuario);
+        listaUsuariosGeral.add(this);
     }
 
-    public static Usuario procuraUsuario(String nomeUsuarioEntrada) {
+    public static Usuario procuraUsuario(String emailUsuario) {
         for (Usuario a : listaUsuariosGeral) {
-            if(a.getNomeUsuario().equals(nomeUsuarioEntrada))
+            if(a.getEmailUsuario().equals(emailUsuario))
                 return a;
         }
         return null;
     }
 
-    public String getNomeUsuario() {
-        return nomeUsuario;
+    public String getEmailUsuario() {
+        return emailUsuario;
     }
 
-    public static void login(String emailEntrada, String senhaEntrada){
-        Scanner sc = new Scanner(System.in);
-        boolean loginInvalido = true;
-        while(loginInvalido){
-            System.out.printf("Digite o email:");
-            String emailTeste = sc.next();
-            System.out.printf("Digite a senha:");
-            String senhaTeste = sc.next();
-            if(loginSenha.containsKey(emailTeste) && loginSenha.containsValue(senhaTeste) && loginSenha.get(emailEntrada).equals(senhaTeste)){
-                loginInvalido = false;
+    public boolean login(String emailEntrada, String senhaEntrada){
+        Usuario a = procuraUsuario(emailEntrada);
+        boolean login = false;
+        if(a!=null){
+            if(loginSenha.containsKey(emailEntrada) && loginSenha.containsValue(senhaEntrada) && loginSenha.get(emailEntrada).equals(senhaEntrada) && a.senhaUsuario.equals(senhaEntrada) && a.emailUsuario.equals(emailEntrada)){
+                login = true;
+                System.out.println("Deu certo");
+        }else{
+                solicitaEmail();
             }
         }
+        return login;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "nomeUsuario='" + nomeUsuario + '\'' +
+                ", cpfUsuario='" + cpfUsuario + '\'' +
+                ", emailUsuario='" + emailUsuario + '\'' +
+                ", senhaUsuario='" + senhaUsuario + '\'' +
+                '}';
+    }
+
 
     public static boolean validaEmail(String emailTeste){
         boolean emailValido = false;
@@ -77,7 +88,7 @@ public abstract class Usuario {
             System.out.println("Por favor, digite um email valido");
             String emailTeste = sc.next();
             if (validaEmail(emailTeste)) {
-                this.senhaUsuario = emailTeste;
+                this.emailUsuario = emailTeste;
                 emailInvalido = false;
             }
         }

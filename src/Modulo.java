@@ -22,14 +22,10 @@ public class Modulo {
     private OffsetDateTime dataInicioAvaliacao;
     private OffsetDateTime dataFimAvalicao;
 
-    public Modulo(String trilhaAssociada, String nomeModulo, String habilidadesTrabalhadas, String tarefaValidacaoModulo, String anotacoesModulo, String dataInicioModulo, String dataInicioAvaliacao, String dataFimAvalicao) {
+    public Modulo(Trilha trilhaAssociada, String nomeModulo, String habilidadesTrabalhadas, String tarefaValidacaoModulo, String anotacoesModulo, String dataInicioModulo, String dataInicioAvaliacao, String dataFimAvalicao) {
         ZoneId fusoSP = ZoneId.of("America/Sao_Paulo");
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        if(procuraTrilha(trilhaAssociada)!=null){
-            this.trilhaAssociada = procuraTrilha(trilhaAssociada);
-        }else{
-            solicitarTrilhaValida();
-        }
+        this.trilhaAssociada = trilhaAssociada;
         this.nomeModulo = nomeModulo;
         this.habilidadesTrabalhadas = habilidadesTrabalhadas;
         this.tarefaValidacaoModulo = tarefaValidacaoModulo;
