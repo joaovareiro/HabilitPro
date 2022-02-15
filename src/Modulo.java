@@ -61,6 +61,10 @@ public class Modulo {
         return null;
     }
 
+    public String getNomeModulo() {
+        return nomeModulo;
+    }
+
     public void solicitarTrilhaValida() {
         Scanner sc = new Scanner(System.in);
         boolean trilhaInvalida = true;
@@ -75,13 +79,4 @@ public class Modulo {
             }
         }
     }
-
-//    public int getNotaModulo() {
-//        return notaModulo;
-//    }
-//
-//    public void setNotaModulo(int notaModulo) {
-//        this.notaModulo = notaModulo;
-//    }
-
 }

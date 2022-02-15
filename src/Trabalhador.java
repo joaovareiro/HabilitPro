@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Trabalhador {
@@ -13,34 +14,33 @@ public class Trabalhador {
     private ArrayList<Trilha> listaTrilhasTrabalhador = new ArrayList<Trilha>();
     private ArrayList<Modulo> listaTrilhas = new ArrayList<Modulo>(); //TODO extrair notas dos modulos dessa lista
     static ArrayList<Trabalhador> listaTrabalhadores = new ArrayList<Trabalhador>();
-    private HashMap<Modulo, Integer> atribuicaoModulo = new HashMap<Modulo, Integer>();
+    private Map<Modulo, Integer> atribuicaoModulo = new HashMap<Modulo, Integer>();
     //validar com os metodos de usuario
 
-    public Trabalhador(String nometrabalhador, String cpfTrabalhador, String empresaAssociada, String nomeSetor, String nomeFuncao) {
+    public Trabalhador(String nometrabalhador, String cpfTrabalhador, EmpresaCliente empresaAssociada, String nomeSetor, String nomeFuncao) {
         this.nometrabalhador = nometrabalhador;
         if(Usuario.validarCPF(cpfTrabalhador)){
             this.cpfTrabalhador = cpfTrabalhador;
         }else{
             solicitarCPF();
         }
-        if(EmpresaCliente.procuraEmpresa(empresaAssociada)!=null){
-            this.empresaAssociada = EmpresaCliente.procuraEmpresa(empresaAssociada);
-        }else{
-            solicitarEmpresa();
-        }
-
+        this.empresaAssociada = empresaAssociada;
         this.nomeSetor = nomeSetor;
         this.nomeFuncao = nomeFuncao;
         this.ultimaFuncao = LocalDate.now();
         listaTrabalhadores.add(this);
     }
 
-    public void atribuiModulo(Modulo m){
-        atribuicaoModulo.put(m,null);
+    public static void atribuiModulo(Trabalhador t, Modulo m){
+        t.atribuicaoModulo.put(m,null);
     }
 
-    public void atribuiNota(Modulo m, int nota){
-        atribuicaoModulo.put(m,nota);
+    public static void setNotaModulo(Trabalhador t, Modulo m, int notaModulo) {
+        t.atribuicaoModulo.put(m,notaModulo);
+    }
+
+    public Map<Modulo, Integer> getAtribuicaoModulo() {
+        return atribuicaoModulo;
     }
 
     private void solicitarEmpresa() {
