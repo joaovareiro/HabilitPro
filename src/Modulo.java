@@ -16,7 +16,7 @@ public class Modulo {
     private String tarefaValidacaoModulo;
     private Status statusModulo;
     private int prazoAvaliacao = 10;
-    private int notaModulo;
+    //private int notaModulo;
     private String anotacoesModulo;
     private OffsetDateTime dataInicioModulo;
     private OffsetDateTime dataInicioAvaliacao;
@@ -76,27 +76,12 @@ public class Modulo {
         }
     }
 
-    public int getNotaModulo() {
-        return notaModulo;
-    }
+//    public int getNotaModulo() {
+//        return notaModulo;
+//    }
+//
+//    public void setNotaModulo(int notaModulo) {
+//        this.notaModulo = notaModulo;
+//    }
 
-    public void setNotaModulo(int notaModulo) {
-        Scanner sc = new Scanner(System.in);
-        boolean notaInvalida = true;
-        if (notaModulo >= 1 && notaModulo <=5) {
-            this.notaModulo = notaModulo;
-            notaInvalida = false;
-        }else{
-        while(notaInvalida){
-            System.out.println("Digite uma nota de 1 a 5");
-            int notaTeste = sc.nextInt();
-            if (notaTeste >= 1 && notaTeste <=5) {
-                this.notaModulo = notaTeste;
-                notaInvalida = false;
-            } else {
-                notaInvalida = true;
-                }
-            }
-        }
-    }
 }

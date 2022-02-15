@@ -9,7 +9,7 @@ public class Trilha {
     private Ocupacao ocupacao;
     private int anoCorrente;
     private String anotacoesTrilha;
-    private static ArrayList<Ocupacao> listaOcupacoes = new ArrayList<Ocupacao>();
+    static final ArrayList<Ocupacao> listaOcupacoes = new ArrayList<Ocupacao>();
     static final ArrayList<Trilha> listaTrilhasGeral = new ArrayList<Trilha>();
     private int nivelSatisfacao;
 
@@ -65,5 +65,6 @@ public class Trilha {
             }
         }
     }
+
 
 }

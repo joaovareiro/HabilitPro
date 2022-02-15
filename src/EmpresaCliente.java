@@ -16,7 +16,7 @@ public class EmpresaCliente {
     private Regional regionalAssociada;
     private Segmento segmentoEmpresa;
     private final ArrayList<Trilha> listaTrilhasAssociadas = new ArrayList<Trilha>();
-    private static ArrayList<EmpresaCliente> listaEmpresas = new ArrayList<>();
+    static ArrayList<EmpresaCliente> listaEmpresas = new ArrayList<>();
     private static int auxEmpresaCliente = 0;
     private int numeroSequencialEmpresa = 0;
 
@@ -44,13 +44,13 @@ public class EmpresaCliente {
         this.numeroSequencialEmpresa = auxEmpresaCliente;
     }
 
-      public static boolean isMatriz(String cnpjTeste){
-             boolean matriz = false;
-            if(EmpresaCliente.cnpjBruto(cnpjTeste).substring(8, 12).equals("0001")){
-                matriz = true;
-                }
-            return matriz;
+    public static boolean isMatriz(String cnpjTeste){
+        boolean matriz = false;
+        if(EmpresaCliente.cnpjBruto(cnpjTeste).substring(8, 12).equals("0001")){
+            matriz = true;
         }
+        return matriz;
+    }
 
     public int getNumeroSequencialEmpresa() {
         return numeroSequencialEmpresa;
@@ -103,5 +103,11 @@ public class EmpresaCliente {
 
     public void addTrilha(Trilha t){
         listaTrilhasAssociadas.add(t);
+    }
+
+    @Override
+    public String toString() {
+        return  nomeEmpresa + " " + cnpjEmpresa + " " +nomeCidade + " "
+                + nomeEstado + " " + regionalAssociada + " " + segmentoEmpresa;
     }
 }

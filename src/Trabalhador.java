@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Trabalhador {
@@ -11,7 +12,8 @@ public class Trabalhador {
     private LocalDate ultimaFuncao;
     private ArrayList<Trilha> listaTrilhasTrabalhador = new ArrayList<Trilha>();
     private ArrayList<Modulo> listaTrilhas = new ArrayList<Modulo>(); //TODO extrair notas dos modulos dessa lista
-
+    static ArrayList<Trabalhador> listaTrabalhadores = new ArrayList<Trabalhador>();
+    private HashMap<Modulo, Integer> atribuicaoModulo = new HashMap<Modulo, Integer>();
     //validar com os metodos de usuario
 
     public Trabalhador(String nometrabalhador, String cpfTrabalhador, String empresaAssociada, String nomeSetor, String nomeFuncao) {
@@ -30,6 +32,15 @@ public class Trabalhador {
         this.nomeSetor = nomeSetor;
         this.nomeFuncao = nomeFuncao;
         this.ultimaFuncao = LocalDate.now();
+        listaTrabalhadores.add(this);
+    }
+
+    public void atribuiModulo(Modulo m){
+        atribuicaoModulo.put(m,null);
+    }
+
+    public void atribuiNota(Modulo m, int nota){
+        atribuicaoModulo.put(m,nota);
     }
 
     private void solicitarEmpresa() {
@@ -69,5 +80,19 @@ public class Trabalhador {
                 cpfIncorreto = true;
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Trabalhador{" +
+                "nometrabalhador='" + nometrabalhador + '\'' +
+                ", cpfTrabalhador='" + cpfTrabalhador + '\'' +
+                ", empresaAssociada=" + empresaAssociada +
+                ", nomeSetor='" + nomeSetor + '\'' +
+                ", nomeFuncao='" + nomeFuncao + '\'' +
+                ", ultimaFuncao=" + ultimaFuncao +
+                ", listaTrilhasTrabalhador=" + listaTrilhasTrabalhador +
+                ", listaTrilhas=" + listaTrilhas +
+                '}';
     }
 }

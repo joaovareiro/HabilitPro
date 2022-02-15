@@ -3,4 +3,5 @@ public class PerfilRH extends Usuario{
         super(nomeUsuario, cpfUsuario, emailUsuario, senhaUsuario);
     }
     //so pode usar os logs dos outros perfis
+
 }
