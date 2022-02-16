@@ -41,24 +41,37 @@ public abstract class Usuario {
         return null;
     }
 
+    public String getNomeUsuario() {
+        return nomeUsuario;
+    }
+
     public String getEmailUsuario() {
         return emailUsuario;
     }
 
-    public boolean login(String emailEntrada, String senhaEntrada){
+    public static Usuario retornaLogin(String emailEntrada, String senhaEntrada){
         Usuario a = procuraUsuario(emailEntrada);
         boolean login = false;
         if(a!=null){
-            if(loginSenha.containsKey(emailEntrada) && loginSenha.containsValue(senhaEntrada) && loginSenha.get(emailEntrada).equals(senhaEntrada) && a.senhaUsuario.equals(senhaEntrada) && a.emailUsuario.equals(emailEntrada)){
+            if(login(emailEntrada,senhaEntrada)){
                 login = true;
-                System.out.println("Deu certo");
         }else{
-                solicitaEmail();
+               solicitaLoginValido();
             }
+        }
+        return a;
+    }
+
+    public static boolean login(String emailEntrada, String senhaEntrada){
+        boolean login = false;
+        if(loginSenha.containsKey(emailEntrada) && loginSenha.containsValue(senhaEntrada) && loginSenha.get(emailEntrada).equals(senhaEntrada)) {
+            login = true;
+            System.out.println("Deu certo");
+            Usuario a = procuraUsuario(emailEntrada);
+            System.out.println("Bem-vindo " + a.getNomeUsuario());
         }
         return login;
     }
-
     @Override
     public String toString() {
         return "Usuario{" +
@@ -81,14 +94,26 @@ public abstract class Usuario {
         return emailValido;
     }
 
-    public void solicitaEmail(){
+    public static void solicitaLoginValido(){
+        Scanner sc = new Scanner(System.in);
+        boolean loginInvalido = true;
+        while (loginInvalido) {
+            System.out.println("Por favor, digite um email valido");
+            String emailTeste = sc.nextLine();
+            System.out.println("Por favor, digite uma senha valida");
+            String senhaTeste = sc.nextLine();
+            if (login(emailTeste,senhaTeste)) {
+                loginInvalido = false;
+            }
+        }
+    }
+    public static void solicitaEmail(){
         Scanner sc = new Scanner(System.in);
         boolean emailInvalido = true;
         while (emailInvalido) {
             System.out.println("Por favor, digite um email valido");
             String emailTeste = sc.next();
             if (validaEmail(emailTeste)) {
-                this.emailUsuario = emailTeste;
                 emailInvalido = false;
             }
         }

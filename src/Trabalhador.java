@@ -58,6 +58,18 @@ public class Trabalhador {
         }
     }
 
+    public String getCpfTrabalhador() {
+        return cpfTrabalhador;
+    }
+
+    public static Trabalhador procuraTrabalhador(String cpfEntrada) {
+        for (Trabalhador a : listaTrabalhadores) {
+            if(a.getCpfTrabalhador().equals(cpfEntrada))
+                return a;
+        }
+        return null;
+    }
+
     public void alteraSetor(String novoSetor){
         this.nomeSetor = novoSetor;
     }

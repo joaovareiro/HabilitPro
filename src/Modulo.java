@@ -61,6 +61,14 @@ public class Modulo {
         return null;
     }
 
+    public static Modulo procuraModulo(Trabalhador t, String nomeModulo) {
+        for (Modulo a : t.getAtribuicaoModulo().keySet()) {
+            if(a.getNomeModulo().equals(nomeModulo))
+                return a;
+        }
+        return null;
+    }
+
     public String getNomeModulo() {
         return nomeModulo;
     }
