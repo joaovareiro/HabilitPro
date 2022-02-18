@@ -144,14 +144,14 @@ public abstract class Usuario {
     }
 
     public static boolean validarCPF(String emailTeste){
-        boolean emailValido = false;
+        boolean emailvalido = false;
         String regx = "(\\d{3})+.+(\\d{3})+.+(\\d{3})+-+(\\d{2})";
         Pattern padrao = Pattern.compile(regx);
         Matcher validador = padrao.matcher(emailTeste);
         if(validador.matches()){
-            emailValido = true;
+            emailvalido = true;
         }
-        return emailValido;
+        return emailvalido;
     }
 
     public void solicitarCPF() {

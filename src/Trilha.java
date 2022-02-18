@@ -11,6 +11,7 @@ public class Trilha {
     private String anotacoesTrilha;
     static final ArrayList<Ocupacao> listaOcupacoes = new ArrayList<Ocupacao>();
     static final ArrayList<Trilha> listaTrilhasGeral = new ArrayList<Trilha>();
+    private ArrayList<Modulo> listaModulos = new ArrayList<Modulo>();
     private int nivelSatisfacao;
 
 
@@ -27,7 +28,6 @@ public class Trilha {
         this.nomeTrilha = this.ocupacao.getNomeOcupacao() + this.empresaCliente.getNomeEmpresa() + empresaCliente.getNumeroSequencialEmpresa() + this.ocupacao.getNumeroSequencialOcupacao()  + this.anoCorrente;
         this.apelido = this.ocupacao.getNomeOcupacao() + empresaCliente.getNumeroSequencialEmpresa() + this.ocupacao.getNumeroSequencialOcupacao() ;
         listaTrilhasGeral.add(this);
-
     }
 
     public static Ocupacao procuraOcupacao(String ocupacaoNome) {
@@ -43,28 +43,16 @@ public class Trilha {
         return nomeTrilha;
     }
 
-    public String getApelido() {
-        return apelido;
+    public ArrayList<Modulo> getListaModulos() {
+        return listaModulos;
     }
 
-    public int getNivelSatisfacao() {
-        return nivelSatisfacao;
+    public static void addModulo(Trilha t, Modulo m){
+        t.listaModulos.add(m);
     }
 
-    public void setNivelSatisfacao(int nivelSatisfacao) {
-        Scanner sc = new Scanner(System.in);
-        boolean notaInvalida = true;
-        while(notaInvalida){
-            System.out.println("Digite uma nota de 1 a 5");
-            int notaTeste = sc.nextInt();
-            if (notaTeste >= 1 && notaTeste <=5) {
-                this.nivelSatisfacao = nivelSatisfacao;
-                notaInvalida = false;
-            } else {
-                notaInvalida = true;
-            }
-        }
+    @Override
+    public String toString() {
+        return nomeTrilha;
     }
-
-
 }

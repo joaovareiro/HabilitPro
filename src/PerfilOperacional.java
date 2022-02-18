@@ -19,19 +19,13 @@ public class PerfilOperacional extends Usuario{
                 if (notaTeste >= 1 && notaTeste <=5) {
                     Trabalhador.setNotaModulo(t,m,notaModulo);
                     notaInvalida = false;
-                } else {
-                    notaInvalida = true;
                 }
             }
         }
     }
 
     public static void getNotaModuloEspecifico(Trabalhador t, Modulo m){
-        for(int a : t.getAtribuicaoModulo().values()){
-            if(t.getAtribuicaoModulo().containsKey(m)){
-                System.out.println(a);
-            }
-        }
+        System.out.println("A nota do módulo procurado é: " + t.getAtribuicaoModulo().get(m));
     }
 
     public static void getMediaTrabalhador(Trabalhador t){
@@ -41,13 +35,14 @@ public class PerfilOperacional extends Usuario{
             soma+=a;
             div++;
         }
-        System.out.println(soma/div);
+        System.out.println("A media do aluno " + t.getNometrabalhador() +" é " + soma/div);
     }
 
-    public static void listaNotasAluno(Trabalhador t){
+    public static void listaNotasMediaAluno(Trabalhador t){
         for(var a : t.getAtribuicaoModulo().entrySet()){
             System.out.println("Modulo " + a.getKey().getNomeModulo() + " Nota " + a.getValue());
         }
+        getMediaTrabalhador(t);
     }
 
 }

@@ -1,6 +1,3 @@
-import enums.Regional;
-import enums.Segmento;
-
 import java.util.Scanner;
 
 public class MenuInicial {

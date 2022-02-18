@@ -4,8 +4,9 @@ public class PerfilAdmin extends Usuario{
     }
 
     //realiza cadastros gerais e relatorios (lista trilhas, ocupacoes, empresas e funcionarios)
-    public static void listaTrilhas() {
-        for (Trilha a : Trilha.listaTrilhasGeral) {
+
+    public static void listaTrilhas(EmpresaCliente ec) {
+        for (Trilha a : ec.getListaTrilhasAssociadas()) {
             System.out.println(a.getNomeTrilha());
         }
     }
@@ -18,6 +19,12 @@ public class PerfilAdmin extends Usuario{
 
     public static void listaEmpresas(){
         for(EmpresaCliente a : EmpresaCliente.listaEmpresas){
+            System.out.println(a.toString());
+        }
+    }
+
+    public static void listaModulosTrilha(Trilha t){
+        for(Modulo a : t.getListaModulos()){
             System.out.println(a.toString());
         }
     }

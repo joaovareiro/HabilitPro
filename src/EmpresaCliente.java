@@ -1,6 +1,3 @@
-import enums.Regional;
-import enums.Segmento;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -13,8 +10,8 @@ public class EmpresaCliente {
     private String nomefilialAssociada;
     private String nomeCidade;
     private String nomeEstado;
-    private Regional regionalAssociada;
-    private Segmento segmentoEmpresa;
+    private String regionalAssociada;
+    private String segmentoEmpresa;
     private final ArrayList<Trilha> listaTrilhasAssociadas = new ArrayList<Trilha>();
     static ArrayList<EmpresaCliente> listaEmpresas = new ArrayList<>();
     private static int auxEmpresaCliente = 0;
@@ -22,7 +19,7 @@ public class EmpresaCliente {
 
 
 
-    public EmpresaCliente(String nomeMatriz, String nomefilialAssociada, String cnpjEmpresa, String nomeCidade, String nomeEstado, Regional regionalAssociada, Segmento segmentoEmpresa) {
+    public EmpresaCliente(String nomeMatriz, String nomefilialAssociada, String cnpjEmpresa, String nomeCidade, String nomeEstado, String regionalAssociada, String segmentoEmpresa) {
         if(validarCNPJ(cnpjEmpresa)){
             this.cnpjEmpresa = cnpjEmpresa;
         }else{
@@ -42,6 +39,7 @@ public class EmpresaCliente {
         this.segmentoEmpresa = segmentoEmpresa;
         auxEmpresaCliente++;
         this.numeroSequencialEmpresa = auxEmpresaCliente;
+        listaEmpresas.add(this);
     }
 
     public static boolean isMatriz(String cnpjTeste){
@@ -82,7 +80,9 @@ public class EmpresaCliente {
         }
     }
 
-
+    public ArrayList<Trilha> getListaTrilhasAssociadas() {
+        return listaTrilhasAssociadas;
+    }
 
     public static String cnpjBruto(String cnpjFormatado){
         return cnpjFormatado.replaceAll("[^0-9]", "");

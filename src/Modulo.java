@@ -16,7 +16,6 @@ public class Modulo {
     private String tarefaValidacaoModulo;
     private Status statusModulo;
     private int prazoAvaliacao = 10;
-    //private int notaModulo;
     private String anotacoesModulo;
     private OffsetDateTime dataInicioModulo;
     private OffsetDateTime dataInicioAvaliacao;
@@ -29,12 +28,13 @@ public class Modulo {
         this.nomeModulo = nomeModulo;
         this.habilidadesTrabalhadas = habilidadesTrabalhadas;
         this.tarefaValidacaoModulo = tarefaValidacaoModulo;
-        this.anotacoesModulo = anotacoesModulo;//
+        this.anotacoesModulo = anotacoesModulo;
         this.dataInicioModulo = OffsetDateTime.from(LocalDate.parse(dataInicioModulo,format).atStartOfDay().atZone(fusoSP));
         this.dataInicioAvaliacao = OffsetDateTime.from(LocalDate.parse(dataInicioModulo,format).atStartOfDay().atZone(fusoSP));
         this.dataFimAvalicao = OffsetDateTime.from(LocalDate.parse(dataFimAvalicao,format).atStartOfDay().atZone(fusoSP)).plusDays(10);
         this.prazoAvaliacao = (int) DAYS.between(this.dataFimAvalicao,this.dataInicioAvaliacao);
         setStatusModulo();
+        Trilha.addModulo(trilhaAssociada,this);
     }
 
     public void setDataFimAvaliacao(String dataFimAvaliacao){
@@ -55,7 +55,7 @@ public class Modulo {
 
     public static Trilha procuraTrilha(String apelido) {
         for (Trilha a : Trilha.listaTrilhasGeral) {
-            if(a.getApelido().equals(apelido))
+            if(a.getNomeTrilha().equals(apelido))
                 return a;
         }
         return null;

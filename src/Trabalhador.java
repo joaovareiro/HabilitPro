@@ -12,7 +12,6 @@ public class Trabalhador {
     private String nomeFuncao;
     private LocalDate ultimaFuncao;
     private ArrayList<Trilha> listaTrilhasTrabalhador = new ArrayList<Trilha>();
-    private ArrayList<Modulo> listaTrilhas = new ArrayList<Modulo>(); //TODO extrair notas dos modulos dessa lista
     static ArrayList<Trabalhador> listaTrabalhadores = new ArrayList<Trabalhador>();
     private Map<Modulo, Integer> atribuicaoModulo = new HashMap<Modulo, Integer>();
     //validar com os metodos de usuario
@@ -31,12 +30,31 @@ public class Trabalhador {
         listaTrabalhadores.add(this);
     }
 
+    public static void atribuiTrilha(Trabalhador trab, Trilha trilha){
+        for(Modulo m : trilha.getListaModulos()){
+            atribuiModulo(trab,m);
+        }
+        if(!trab.getListaTrilhasTrabalhador().contains(trilha)) {
+            trab.getListaTrilhasTrabalhador().add(trilha);
+        }else{
+            System.out.println("Essa trilha já foi atribuida ao trabalhador");
+        }
+    }
+
+    public ArrayList<Trilha> getListaTrilhasTrabalhador() {
+        return listaTrilhasTrabalhador;
+    }
+
     public static void atribuiModulo(Trabalhador t, Modulo m){
         t.atribuicaoModulo.put(m,null);
     }
 
     public static void setNotaModulo(Trabalhador t, Modulo m, int notaModulo) {
         t.atribuicaoModulo.put(m,notaModulo);
+    }
+
+    public String getNometrabalhador() {
+        return nometrabalhador;
     }
 
     public Map<Modulo, Integer> getAtribuicaoModulo() {
@@ -96,15 +114,8 @@ public class Trabalhador {
 
     @Override
     public String toString() {
-        return "Trabalhador{" +
-                "nometrabalhador='" + nometrabalhador + '\'' +
-                ", cpfTrabalhador='" + cpfTrabalhador + '\'' +
-                ", empresaAssociada=" + empresaAssociada +
-                ", nomeSetor='" + nomeSetor + '\'' +
-                ", nomeFuncao='" + nomeFuncao + '\'' +
+        return nometrabalhador + " " + cpfTrabalhador + " " + empresaAssociada +" "+ nomeSetor + " " + nomeFuncao + " " +
                 ", ultimaFuncao=" + ultimaFuncao +
-                ", listaTrilhasTrabalhador=" + listaTrilhasTrabalhador +
-                ", listaTrilhas=" + listaTrilhas +
-                '}';
+                ", listaTrilhasTrabalhador=" + listaTrilhasTrabalhador;
     }
 }

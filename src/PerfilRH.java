@@ -4,4 +4,5 @@ public class PerfilRH extends Usuario{
     }
     //so pode usar os logs dos outros perfis
 
+
 }
