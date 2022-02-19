@@ -20,12 +20,12 @@ public class MenuAdmin {
         op = sc.nextInt();
         switch (op){
             case 1: {
-                System.out.println("Digite o CNPJ da empresa:");
+                System.out.println("Digite o CNPJ da empresa (no formato XX.XXX.XXX/XXXX-XX):");
                 sc.nextLine();
                 String cnpjEntrada = sc.nextLine();
                 if(!EmpresaCliente.validarCNPJ(cnpjEntrada))
                 while (true) {
-                    System.out.println("Digite o nome de um cnpj válido");
+                    System.out.println("Digite o nome de um cnpj válido (no formato XX.XXX.XXX/XXXX-XX)");
                     String cnpjTeste = sc.nextLine();
                     if (EmpresaCliente.validarCNPJ(cnpjTeste)) {
                         cnpjEntrada = cnpjTeste;

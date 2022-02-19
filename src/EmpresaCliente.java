@@ -69,7 +69,7 @@ public class EmpresaCliente {
         Scanner sc = new Scanner(System.in);
         boolean cnpjIncorreto = true;
         while (cnpjIncorreto) {
-            System.out.println("Por favor, digite um CNPJ valido");
+            System.out.println("Por favor, digite um CNPJ valido (no formato XX.XXX.XXX/XXXX-XX)");
             String cnpjTeste = sc.next();
             if (validarCNPJ(cnpjTeste) == true) {
                 this.cnpjEmpresa = cnpjTeste;
