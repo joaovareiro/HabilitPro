@@ -14,7 +14,6 @@ public class Trabalhador {
     private ArrayList<Trilha> listaTrilhasTrabalhador = new ArrayList<Trilha>();
     static ArrayList<Trabalhador> listaTrabalhadores = new ArrayList<Trabalhador>();
     private Map<Modulo, Integer> atribuicaoModulo = new HashMap<Modulo, Integer>();
-    //validar com os metodos de usuario
 
     public Trabalhador(String nometrabalhador, String cpfTrabalhador, EmpresaCliente empresaAssociada, String nomeSetor, String nomeFuncao) {
         this.nometrabalhador = nometrabalhador;
@@ -61,19 +60,21 @@ public class Trabalhador {
         return atribuicaoModulo;
     }
 
-    private void solicitarEmpresa() {
+    public static EmpresaCliente solicitarEmpresa() {
         Scanner sc = new Scanner(System.in);
         boolean empresaIncorreta = true;
+        EmpresaCliente e =null;
         while (empresaIncorreta) {
             System.out.println("Por favor, digite o nome de uma Empresa valida");
             String nomeTeste = sc.next();
             if (EmpresaCliente.procuraEmpresa(nomeTeste)!=null) {
-                this.empresaAssociada = EmpresaCliente.procuraEmpresa(nomeTeste);
+                e = EmpresaCliente.procuraEmpresa(nomeTeste);
                 empresaIncorreta = false;
             } else {
                 empresaIncorreta = true;
             }
         }
+        return e;
     }
 
     public String getCpfTrabalhador() {
@@ -86,10 +87,6 @@ public class Trabalhador {
                 return a;
         }
         return null;
-    }
-
-    public void alteraSetor(String novoSetor){
-        this.nomeSetor = novoSetor;
     }
 
     public void alteraFuncao(String novaFuncao){

@@ -107,13 +107,14 @@ public abstract class Usuario {
             }
         }
     }
-    public static void solicitaEmail(){
+    public void solicitaEmail(){
         Scanner sc = new Scanner(System.in);
         boolean emailInvalido = true;
         while (emailInvalido) {
             System.out.println("Por favor, digite um email valido");
             String emailTeste = sc.next();
             if (validaEmail(emailTeste)) {
+                this.emailUsuario = emailTeste;
                 emailInvalido = false;
             }
         }
@@ -144,14 +145,14 @@ public abstract class Usuario {
     }
 
     public static boolean validarCPF(String emailTeste){
-        boolean emailvalido = false;
+        boolean cpfvalido = false;
         String regx = "(\\d{3})+.+(\\d{3})+.+(\\d{3})+-+(\\d{2})";
         Pattern padrao = Pattern.compile(regx);
         Matcher validador = padrao.matcher(emailTeste);
         if(validador.matches()){
-            emailvalido = true;
+            cpfvalido = true;
         }
-        return emailvalido;
+        return cpfvalido;
     }
 
     public void solicitarCPF() {

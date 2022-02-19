@@ -1,7 +1,7 @@
 package enums;
 
 public enum Status {
-    CursoNaoIniciado(),EmAndamento(), EmAvaliacao(), AvaliaaoFinalizada();
+    CursoNaoIniciado(),EmAndamento(), EmAvaliacao(), AvaliacaoFinalizada();
     Status() {
     }
 }

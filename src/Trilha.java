@@ -12,8 +12,6 @@ public class Trilha {
     static final ArrayList<Ocupacao> listaOcupacoes = new ArrayList<Ocupacao>();
     static final ArrayList<Trilha> listaTrilhasGeral = new ArrayList<Trilha>();
     private ArrayList<Modulo> listaModulos = new ArrayList<Modulo>();
-    private int nivelSatisfacao;
-
 
     public Trilha(EmpresaCliente empresaCliente, String nomeOcupacao, String anotacoesTrilha) {
         this.empresaCliente = empresaCliente;
@@ -36,6 +34,21 @@ public class Trilha {
                 return a;
         }
         return null;
+    }
+
+    public static Trilha solicitarTrilha() {
+        Scanner sc = new Scanner(System.in);
+        boolean trilhaIncorreta = true;
+        Trilha a = null;
+        while (trilhaIncorreta) {
+            System.out.println("Por favor, digite o nome de uma trilha valida");
+            String trilhateste = sc.next();
+            if (Modulo.procuraTrilha(trilhateste)!=null) {
+                a = Modulo.procuraTrilha(trilhateste);
+                trilhaIncorreta = false;
+            }
+        }
+        return a;
     }
 
 

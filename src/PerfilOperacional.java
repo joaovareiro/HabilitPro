@@ -1,11 +1,11 @@
-import java.util.Map;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class PerfilOperacional extends Usuario{
     public PerfilOperacional(String nomeUsuario, String cpfUsuario, String emailUsuario, String senhaUsuario) {
         super(nomeUsuario, cpfUsuario, emailUsuario, senhaUsuario);
     }
-    //avalia (set nota) e emite relatorios(get values do hashmap fazendo uma media geral e tambem lista o conjunto (nome modulo e nota))
 
     public static void avaliaModulo(Trabalhador t, Modulo m, int notaModulo) {
         Scanner sc = new Scanner(System.in);
@@ -25,17 +25,32 @@ public class PerfilOperacional extends Usuario{
     }
 
     public static void getNotaModuloEspecifico(Trabalhador t, Modulo m){
-        System.out.println("A nota do módulo procurado é: " + t.getAtribuicaoModulo().get(m));
+        if(t.getAtribuicaoModulo().get(m) != null) {
+            System.out.println("A nota do módulo procurado é: " + t.getAtribuicaoModulo().get(m));
+        }else{
+            System.out.println("Esse módulo não tem nota");
+        }
+    }
+
+    public static void getTrilhasTrbalhador(Trabalhador t){
+        for(Trilha a :t.getListaTrilhasTrabalhador()){
+            System.out.println(a.getNomeTrilha());
+        }
     }
 
     public static void getMediaTrabalhador(Trabalhador t){
         double soma = 0;
         double div = 0;
-        for(int a : t.getAtribuicaoModulo().values()){
-            soma+=a;
+
+        HashMap<Modulo, Integer> mapaValoresMedia = new HashMap<>(t.getAtribuicaoModulo());
+        mapaValoresMedia.values().removeAll(Collections.singleton(null));
+        for (int a : mapaValoresMedia.values()) {
+            soma += a;
             div++;
         }
         System.out.println("A media do aluno " + t.getNometrabalhador() +" é " + soma/div);
+
+
     }
 
     public static void listaNotasMediaAluno(Trabalhador t){

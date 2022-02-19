@@ -1,7 +1,6 @@
 import enums.Status;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -30,17 +29,17 @@ public class Modulo {
         this.tarefaValidacaoModulo = tarefaValidacaoModulo;
         this.anotacoesModulo = anotacoesModulo;
         this.dataInicioModulo = OffsetDateTime.from(LocalDate.parse(dataInicioModulo,format).atStartOfDay().atZone(fusoSP));
-        this.dataInicioAvaliacao = OffsetDateTime.from(LocalDate.parse(dataInicioModulo,format).atStartOfDay().atZone(fusoSP));
-        this.dataFimAvalicao = OffsetDateTime.from(LocalDate.parse(dataFimAvalicao,format).atStartOfDay().atZone(fusoSP)).plusDays(10);
-        this.prazoAvaliacao = (int) DAYS.between(this.dataFimAvalicao,this.dataInicioAvaliacao);
+        this.dataInicioAvaliacao = OffsetDateTime.from(LocalDate.parse(dataInicioAvaliacao,format).atStartOfDay().atZone(fusoSP));
+        this.dataFimAvalicao = OffsetDateTime.from(LocalDate.parse(dataFimAvalicao,format).atStartOfDay().atZone(fusoSP));
+        this.prazoAvaliacao = (int) DAYS.between(this.dataInicioAvaliacao,this.dataFimAvalicao);
         setStatusModulo();
         Trilha.addModulo(trilhaAssociada,this);
     }
 
-    public void setDataFimAvaliacao(String dataFimAvaliacao){
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        this.dataFimAvalicao = OffsetDateTime.parse(dataFimAvaliacao,format);
+    public Status getStatusModulo() {
+        return statusModulo;
     }
+
     public void setStatusModulo(){
         if(OffsetDateTime.now().isBefore(dataInicioModulo)){
             this.statusModulo = Status.CursoNaoIniciado;
@@ -49,7 +48,7 @@ public class Modulo {
         }else if(OffsetDateTime.now().isAfter(dataInicioAvaliacao) && OffsetDateTime.now().isBefore(dataFimAvalicao)){
             this.statusModulo = Status.EmAvaliacao;
         }else{
-            this.statusModulo = Status.AvaliaaoFinalizada;
+            this.statusModulo = Status.AvaliacaoFinalizada;
         }
     }
 
@@ -86,5 +85,10 @@ public class Modulo {
                 trilhaInvalida = true;
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return trilhaAssociada + " " + nomeModulo + " " + habilidadesTrabalhadas + " " +  tarefaValidacaoModulo + " " + statusModulo + " " + prazoAvaliacao + " " + anotacoesModulo + " " + dataInicioModulo + " " + dataInicioAvaliacao + " " + dataFimAvalicao;
     }
 }

@@ -3,17 +3,9 @@ public class PerfilAdmin extends Usuario{
         super(nomeUsuario, cpfUsuario, emailUsuario, senhaUsuario);
     }
 
-    //realiza cadastros gerais e relatorios (lista trilhas, ocupacoes, empresas e funcionarios)
-
     public static void listaTrilhas(EmpresaCliente ec) {
         for (Trilha a : ec.getListaTrilhasAssociadas()) {
             System.out.println(a.getNomeTrilha());
-        }
-    }
-
-    public static void listaOcupacoes() {
-        for (Ocupacao a : Trilha.listaOcupacoes) {
-            System.out.println(a.getNomeOcupacao());
         }
     }
 

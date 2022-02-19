@@ -7,11 +7,6 @@ public class MenuRH {
         int op;
         boolean a = true;
         while (a){
-            //listar todas as empresas do sistema
-            //listar todas as trilhas de uma empresa
-            //listar todos os modulos de uma trilha
-            //listar todos os trabalhadores
-            //listar as notas de um aluno e sua média
             System.out.println("-------HabilitPro-------");
             System.out.println("""
                     Selecione uma opcao:\s
@@ -35,10 +30,10 @@ public class MenuRH {
                     break;
                 }
                 case 3:{
-                    System.out.println("Digite o apelido da trilha");
+                    System.out.println("Digite o nome da trilha");
                     sc.nextLine();
-                    String apelidoTrilha = sc.nextLine();
-                    PerfilAdmin.listaModulosTrilha(Objects.requireNonNull(Modulo.procuraTrilha(apelidoTrilha)));
+                    String nomeTrilha = sc.nextLine();
+                    PerfilAdmin.listaModulosTrilha(Objects.requireNonNull(Modulo.procuraTrilha(nomeTrilha)));
                     break;
                 }
                 case 4:{
