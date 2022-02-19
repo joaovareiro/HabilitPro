@@ -4,8 +4,12 @@ public class PerfilAdmin extends Usuario{
     }
 
     public static void listaTrilhas(EmpresaCliente ec) {
-        for (Trilha a : ec.getListaTrilhasAssociadas()) {
-            System.out.println(a.getNomeTrilha());
+        if(ec.getListaTrilhasAssociadas().size()>0){
+            for (Trilha a : ec.getListaTrilhasAssociadas()) {
+                System.out.println(a.getNomeTrilha());
+            }
+        }else{
+            System.out.println("Essa empresa não possui trilhas associadas");
         }
     }
 
@@ -16,8 +20,12 @@ public class PerfilAdmin extends Usuario{
     }
 
     public static void listaModulosTrilha(Trilha t){
-        for(Modulo a : t.getListaModulos()){
-            System.out.println(a.toString());
+        if(t.getListaModulos().size()>0){
+            for(Modulo a : t.getListaModulos()){
+                System.out.println(a.toString());
+            }
+        }else{
+            System.out.println("Essa trilha não possui modulos asssociados a ela");
         }
     }
 
@@ -26,6 +34,14 @@ public class PerfilAdmin extends Usuario{
             System.out.println(a.toString());
         }
     }
+
+    public static void logTrabalhador(Trabalhador t) {
+        for(String a: t.getLogTrabalhador()){
+            System.out.println(a);
+        }
+    }
+
+
 
 
 

@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class PerfilOperacional extends Usuario{
+
     public PerfilOperacional(String nomeUsuario, String cpfUsuario, String emailUsuario, String senhaUsuario) {
         super(nomeUsuario, cpfUsuario, emailUsuario, senhaUsuario);
     }
@@ -33,8 +34,12 @@ public class PerfilOperacional extends Usuario{
     }
 
     public static void getTrilhasTrbalhador(Trabalhador t){
-        for(Trilha a :t.getListaTrilhasTrabalhador()){
-            System.out.println(a.getNomeTrilha());
+        if(t.getListaTrilhasTrabalhador().size()>0){
+            for(Trilha a :t.getListaTrilhasTrabalhador()){
+                System.out.println(a.getNomeTrilha());
+            }
+        }else{
+            System.out.println("O trabalhador não tem trilhas atribuidas a ele");
         }
     }
 

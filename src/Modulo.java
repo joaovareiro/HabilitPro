@@ -30,7 +30,12 @@ public class Modulo {
         this.dataInicioModulo = OffsetDateTime.from(LocalDate.parse(dataInicioModulo,format).atStartOfDay().atZone(fusoSP));
         this.dataInicioAvaliacao = OffsetDateTime.from(LocalDate.parse(dataInicioAvaliacao,format).atStartOfDay().atZone(fusoSP));
         this.dataFimAvalicao = OffsetDateTime.from(LocalDate.parse(dataFimAvalicao,format).atStartOfDay().atZone(fusoSP));
-        this.prazoAvaliacao = (int) DAYS.between(this.dataInicioAvaliacao,this.dataFimAvalicao);
+        prazoAvaliacao = (int) DAYS.between(this.dataInicioAvaliacao, this.dataFimAvalicao);
+        if(prazoAvaliacao>=10) {
+            this.prazoAvaliacao = (int) DAYS.between(this.dataInicioAvaliacao, this.dataFimAvalicao);
+        }else{
+            solicitaPrazoValido(this.dataInicioAvaliacao);
+        }
         setStatusModulo();
         Trilha.addModulo(trilhaAssociada,this);
     }
@@ -48,6 +53,24 @@ public class Modulo {
             this.statusModulo = Status.EmAvaliacao;
         }else{
             this.statusModulo = Status.AvaliacaoFinalizada;
+        }
+    }
+
+    public void solicitaPrazoValido(OffsetDateTime a){
+        Scanner sc = new Scanner(System.in);
+        boolean diaInvalido = true;
+        while (diaInvalido) {
+            System.out.println("O prazo de avaliação deve ter uma duração de pelo menos 10 dias, por favor insira outra data:");
+            String stringData = sc.nextLine();
+            ZoneId fusoSP = ZoneId.of("America/Sao_Paulo");
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            OffsetDateTime dataTeste = OffsetDateTime.from(LocalDate.parse(stringData,format).atStartOfDay().atZone(fusoSP));
+            if ((int) DAYS.between(a,dataTeste)>10) {
+                this.dataFimAvalicao = dataTeste;
+                diaInvalido = false;
+            } else {
+                diaInvalido = true;
+            }
         }
     }
 
@@ -88,6 +111,6 @@ public class Modulo {
 
     @Override
     public String toString() {
-        return trilhaAssociada + " " + nomeModulo + " " + habilidadesTrabalhadas + " " +  tarefaValidacaoModulo + " " + statusModulo + " " + prazoAvaliacao + " " + anotacoesModulo + " " + dataInicioModulo + " " + dataInicioAvaliacao + " " + dataFimAvalicao;
+        return trilhaAssociada + " " + nomeModulo + " " +statusModulo + " " + dataInicioModulo + " " + dataInicioAvaliacao + " " + dataFimAvalicao;
     }
 }

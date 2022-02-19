@@ -14,7 +14,7 @@ public class MenuAdmin {
                     3 - Cadastrar um modulo
                     4 - Cadastrar uma nova conta
                     5 - Cadastrar um trabalhador
-                    6 - Alterar a funcao de um trabalhador
+                    6 - Alterar o cargo de um trablhador
                     7 - Associar uma trilha a um trbalhador
                     8 - Sair""");
         op = sc.nextInt();
@@ -166,21 +166,43 @@ public class MenuAdmin {
                 System.out.println("Digite o cpf do trabalhador (no formato xxx.xxx.xxx-xx)");
                 sc.nextLine();
                 String cpfTrabalhador = sc.nextLine();
-                System.out.println("Digite o nome da nova funcao do trabalhador");
+                System.out.println("Digite o nome da empresa");
+                String novaEmpresa = sc.nextLine();
+                System.out.println("Digite a nova funcao do trabalhador");
                 String novaFuncao = sc.nextLine();
-                if (Trabalhador.procuraTrabalhador(cpfTrabalhador) == null) {
+                System.out.println("Digite o novo setor do trabalhador");
+                String novoSetor = sc.nextLine();
+                if (Trabalhador.procuraTrabalhador(cpfTrabalhador) == null && EmpresaCliente.procuraEmpresa(novaEmpresa) == null) {
                     while (true) {
                         System.out.println("Digite o cpf de um trabalhador válido (no formato xxx.xxx.xxx-xx)");
                         String cpfTeste = sc.nextLine();
-                        if (Trabalhador.procuraTrabalhador(cpfTeste) != null) {
-                            Trabalhador.procuraTrabalhador(cpfTeste).alteraFuncao(novaFuncao);
-                            System.out.println("A funcao do trabalhador " + Trabalhador.procuraTrabalhador(cpfTeste).getNometrabalhador() + " foi alterada para " + novaFuncao + " com sucesso!" );
+                        System.out.println("Digite o nome de uma empresa válida");
+                        String empresaTeste = sc.nextLine();
+                        if (Trabalhador.procuraTrabalhador(cpfTeste) != null && EmpresaCliente.procuraEmpresa(empresaTeste) != null) {
+                            Trabalhador.procuraTrabalhador(cpfTeste).alteraCargo(EmpresaCliente.procuraEmpresa(empresaTeste), novoSetor, novaFuncao);
                             break;
                         }
                     }
-                } else {
-                    Trabalhador.procuraTrabalhador(cpfTrabalhador).alteraFuncao(novaFuncao);
-                    System.out.println("A funcao do trabalhador " + Trabalhador.procuraTrabalhador(cpfTrabalhador).getNometrabalhador() + " foi alterada para " + novaFuncao + " com sucesso!" );
+                }else if(Trabalhador.procuraTrabalhador(cpfTrabalhador) == null){
+                    while (true) {
+                        System.out.println("Digite o cpf de um trabalhador válido (no formato xxx.xxx.xxx-xx)");
+                        String cpfTeste = sc.nextLine();
+                        if (Trabalhador.procuraTrabalhador(cpfTeste) != null ) {
+                            Trabalhador.procuraTrabalhador(cpfTeste).alteraCargo(EmpresaCliente.procuraEmpresa(novaEmpresa), novoSetor, novaFuncao);
+                            break;
+                        }
+                    }
+                }else if(EmpresaCliente.procuraEmpresa(novaEmpresa) == null){
+                    while (true) {
+                        System.out.println("Digite o nome de uma empresa válida");
+                        String empresaTeste = sc.nextLine();
+                        if (EmpresaCliente.procuraEmpresa(empresaTeste) != null) {
+                            Trabalhador.procuraTrabalhador(cpfTrabalhador).alteraCargo(EmpresaCliente.procuraEmpresa(empresaTeste), novoSetor, novaFuncao);
+                            break;
+                        }
+                    }
+                }else{
+                    Trabalhador.procuraTrabalhador(cpfTrabalhador).alteraCargo(EmpresaCliente.procuraEmpresa(novaEmpresa), novoSetor, novaFuncao);
                 }
                 break;
             }case 7:{

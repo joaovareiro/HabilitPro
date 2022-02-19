@@ -15,7 +15,8 @@ public class MenuRH {
                     3 - Listar todos os modulos de uma trilha
                     4 - Listar todos os trabalhadores do sistema
                     5 - Listar as notas de um aluno e sua média
-                    6 - Sair""");
+                    6 - Ver o log de um trabalhador
+                    7 - Sair""");
             op = sc.nextInt();
             switch (op){
                 case 1: {
@@ -26,27 +27,78 @@ public class MenuRH {
                     System.out.println("Digite o nome da empresa");
                     sc.nextLine();
                     String nomeEmpresa = sc.nextLine();
-                    PerfilAdmin.listaTrilhas(EmpresaCliente.procuraEmpresa(nomeEmpresa));
+                    if(EmpresaCliente.procuraEmpresa(nomeEmpresa) == null){
+                        while (true) {
+                            System.out.println("Digite o nome de uma empresa válida");
+                            String empresaTeste = sc.nextLine();
+                            if (EmpresaCliente.procuraEmpresa(empresaTeste) != null) {
+                                PerfilAdmin.listaTrilhas(EmpresaCliente.procuraEmpresa(empresaTeste));
+                                break;
+                            }
+                        }
+                    }else{
+                        PerfilAdmin.listaTrilhas(EmpresaCliente.procuraEmpresa(nomeEmpresa));
+                    }
                     break;
                 }
                 case 3:{
                     System.out.println("Digite o nome da trilha");
                     sc.nextLine();
                     String nomeTrilha = sc.nextLine();
-                    PerfilAdmin.listaModulosTrilha(Objects.requireNonNull(Modulo.procuraTrilha(nomeTrilha)));
+                    if(Modulo.procuraTrilha(nomeTrilha) == null){
+                        while (true) {
+                            System.out.println("Digite o nome de uma trilha válida");
+                            String trilhaTeste = sc.nextLine();
+                            if (Modulo.procuraTrilha(trilhaTeste) != null) {
+                                PerfilAdmin.listaModulosTrilha(Objects.requireNonNull(Modulo.procuraTrilha(trilhaTeste)));
+                                break;
+                            }
+                        }
+                    }else{
+                        PerfilAdmin.listaModulosTrilha(Objects.requireNonNull(Modulo.procuraTrilha(nomeTrilha)));
+                        break;
+                    }
                     break;
                 }
                 case 4:{
                     PerfilAdmin.listaTrabalhadores();
                     break;
                 }
-                case 5:{
+                case 5: {
                     System.out.println("Digite o cpf do trabalhador (no formato xxx.xxx.xxx-xx) ");
                     sc.nextLine();
                     String cpfEntrada = sc.next();
-                    PerfilOperacional.listaNotasMediaAluno(Objects.requireNonNull(Trabalhador.procuraTrabalhador(cpfEntrada)));
+                    if(Trabalhador.procuraTrabalhador(cpfEntrada) == null){
+                        while (true) {
+                            System.out.println("Por favor, digite o cpf de um trabalhador válido (no formato xxx.xxx.xxx-xx)");
+                            String cpfTeste = sc.nextLine();
+                            if (Trabalhador.procuraTrabalhador(cpfTeste) != null ) {
+                                PerfilOperacional.listaNotasMediaAluno(Objects.requireNonNull(Trabalhador.procuraTrabalhador(cpfTeste)));
+                                break;
+                            }
+                        }
+                    }else{
+                        PerfilOperacional.listaNotasMediaAluno(Objects.requireNonNull(Trabalhador.procuraTrabalhador(cpfEntrada)));
+                    }
                     break;
                 } case 6:{
+                    System.out.println("Digite o cpf do trabalhador (no formato xxx.xxx.xxx-xx) ");
+                    sc.nextLine();
+                    String cpfEntrada = sc.next();
+                    if(Trabalhador.procuraTrabalhador(cpfEntrada) == null){
+                        while (true) {
+                            System.out.println("Digite o cpf de um trabalhador válido (no formato xxx.xxx.xxx-xx)");
+                            String cpfTeste = sc.nextLine();
+                            if (Trabalhador.procuraTrabalhador(cpfTeste) != null ) {
+                                PerfilAdmin.logTrabalhador(Objects.requireNonNull(Trabalhador.procuraTrabalhador(cpfTeste)));
+                                break;
+                            }
+                        }
+                    }else{
+                        PerfilAdmin.logTrabalhador(Objects.requireNonNull(Trabalhador.procuraTrabalhador(cpfEntrada)));
+                    }
+
+                } case 7:{
                     a = false;
                     break;
                 }
