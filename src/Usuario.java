@@ -66,7 +66,6 @@ public abstract class Usuario {
         boolean login = false;
         if(loginSenha.containsKey(emailEntrada) && loginSenha.containsValue(senhaEntrada) && loginSenha.get(emailEntrada).equals(senhaEntrada)) {
             login = true;
-            System.out.println("Deu certo");
             Usuario a = procuraUsuario(emailEntrada);
             System.out.println("Bem-vindo " + a.getNomeUsuario());
         }

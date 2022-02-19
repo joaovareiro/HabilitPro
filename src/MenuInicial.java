@@ -3,8 +3,8 @@ import java.util.Scanner;
 public class MenuInicial {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        EmpresaCliente m1 = new EmpresaCliente( "Matriz",null,"00.790.711/0001-07","Porto Alegre","RS","Sul","Equipamentos Eletricos");
-        EmpresaCliente f1 = new EmpresaCliente("Matriz","Filial","00.790.711/0002-07","Porto Alegre","RS","Sul","Equipamentos Eletricos");
+        EmpresaCliente m1 = new EmpresaCliente( "MatrizTeste",null,"00.790.711/0001-07","Porto Alegre","RS","Sul","Equipamentos Eletricos");
+        EmpresaCliente f1 = new EmpresaCliente("MatrizTeste","FilialTeste","00.790.711/0002-07","Porto Alegre","RS","Sul","Equipamentos Eletricos");
         Trilha t1 = new Trilha(f1,"Programação","Trilha para aprender lógica de programação");
         Trilha t2 = new Trilha(m1,"Programação","Trilha para aprender OO");
         Modulo mod1 = new Modulo(t1,"Logica 1","Lógica de programação","Atividade do Trello","Este modulo tem como o objetivo o aprendizado de if e else","15/02/2022","17/02/2022","15/03/2022");

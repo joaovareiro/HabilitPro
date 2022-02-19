@@ -1,4 +1,3 @@
-import java.util.Objects;
 import java.util.Scanner;
 
 public class MenuAdmin {
@@ -24,6 +23,15 @@ public class MenuAdmin {
                 System.out.println("Digite o CNPJ da empresa:");
                 sc.nextLine();
                 String cnpjEntrada = sc.nextLine();
+                if(!EmpresaCliente.validarCNPJ(cnpjEntrada))
+                while (true) {
+                    System.out.println("Digite o nome de um cnpj válido");
+                    String cnpjTeste = sc.nextLine();
+                    if (EmpresaCliente.validarCNPJ(cnpjTeste)) {
+                        cnpjEntrada = cnpjTeste;
+                        break;
+                    }
+                }
                 System.out.println("Digite o nome da Matriz:");
                 String nomeMatriz = sc.nextLine();
                 System.out.println("Digite o nome da Cidade:");
@@ -54,12 +62,12 @@ public class MenuAdmin {
                 if(EmpresaCliente.procuraEmpresa(nomeEmpresa)!=null){
                     Trilha t1 = new Trilha(EmpresaCliente.procuraEmpresa(nomeEmpresa),nomeOcupacao,anotacoes);
                     EmpresaCliente.procuraEmpresa(nomeEmpresa).addTrilha(t1);
-                    System.out.println(t1.getNomeTrilha());
+                    System.out.println("A trilha " + t1.getNomeTrilha() + " foi criada com sucesso!");
                 }else{
                     EmpresaCliente emp1 = Trabalhador.solicitarEmpresa();
                     Trilha t1 = new Trilha(emp1,nomeOcupacao,anotacoes);
-                    EmpresaCliente.procuraEmpresa(nomeEmpresa).addTrilha(t1);
-                    System.out.println(t1.getNomeTrilha());
+                    emp1.addTrilha(t1);
+                    System.out.println("A trilha " + t1.getNomeTrilha() + " foi criada com sucesso!");
                 }
                 break;
             }
@@ -83,10 +91,12 @@ public class MenuAdmin {
                 String dataFimAvaliacao = sc.nextLine();
                 if(Modulo.procuraTrilha(nomeTrilha)!=null) {
                     Modulo m1 = new Modulo(Modulo.procuraTrilha(nomeTrilha), nomeModulo, habilidades, avalicao, nomeModulo, dataInicioModulo, dataInicioAvaliacao, dataFimAvaliacao);
+                    System.out.println("O modulo " + m1.getNomeModulo() + " foi criado com sucesso!");
                 }else{
                     boolean repeticao = true;
                     while(repeticao){
                             Modulo m1 = new Modulo(Trilha.solicitarTrilha(),nomeModulo, habilidades, avalicao, nomeModulo, dataInicioModulo, dataInicioAvaliacao, dataFimAvaliacao);
+                            System.out.println("O modulo " + m1.getNomeModulo() + " foi criado com sucesso!");
                             repeticao = false;
                             }
                         }
@@ -112,17 +122,14 @@ public class MenuAdmin {
                 switch (op1){
                     case 1:{
                         PerfilAdmin pa1 = new PerfilAdmin(nomeUsuario,cpfUsuario,emailUsuario,senhaUsuario);
-                        System.out.println(pa1.toString());
                         break;
                     }
                     case 2:{
                         PerfilOperacional po1 = new PerfilOperacional(nomeUsuario,cpfUsuario,emailUsuario,senhaUsuario);
-                        System.out.println(po1.toString());
                         break;
                     }
                     case 3:{
                         PerfilRH prh1 = new PerfilRH(nomeUsuario,cpfUsuario,emailUsuario,senhaUsuario);
-                        System.out.println(prh1.toString());
                         break;
                     }
                 }
@@ -132,13 +139,13 @@ public class MenuAdmin {
                 System.out.println("Digite o nome do Aluno");
                 sc.nextLine();
                 String nomeTrabalhador = sc.nextLine();
-                System.out.println("Digite o cpf do trabalhador");
+                System.out.println("Digite o cpf do trabalhador (no formato xxx.xxx.xxx-xx)");
                 String cpfTrabalhador = sc.nextLine();
                 System.out.println("Digite o nome da empresa do trabalhador");
                 String nomeEmpresa = sc.nextLine();
                 System.out.println("Digite o nome do setor do trabalhador");
                 String nomeSetor = sc.nextLine();
-                System.out.println("Digite o fome da funcao exercida pelo trabalhador");
+                System.out.println("Digite o nome da funcao exercida pelo trabalhador");
                 String nomeFuncao = sc.nextLine();
                 if(EmpresaCliente.procuraEmpresa(nomeEmpresa)==null) {
                     while (true) {
@@ -151,35 +158,76 @@ public class MenuAdmin {
                     }
                 }else {
                     Trabalhador t1 = new Trabalhador(nomeTrabalhador, cpfTrabalhador, EmpresaCliente.procuraEmpresa(nomeEmpresa), nomeSetor, nomeFuncao);
+
                 }
                 break;
             }
             case 6: {
-                System.out.println("Digite o cpf do trabalhador");
+                System.out.println("Digite o cpf do trabalhador (no formato xxx.xxx.xxx-xx)");
                 sc.nextLine();
                 String cpfTrabalhador = sc.nextLine();
                 System.out.println("Digite o nome da nova funcao do trabalhador");
                 String novaFuncao = sc.nextLine();
                 if (Trabalhador.procuraTrabalhador(cpfTrabalhador) == null) {
                     while (true) {
-                        System.out.println("Digite o cpf de um trabalhador válido");
+                        System.out.println("Digite o cpf de um trabalhador válido (no formato xxx.xxx.xxx-xx)");
                         String cpfTeste = sc.nextLine();
                         if (Trabalhador.procuraTrabalhador(cpfTeste) != null) {
                             Trabalhador.procuraTrabalhador(cpfTeste).alteraFuncao(novaFuncao);
+                            System.out.println("A funcao do trabalhador " + Trabalhador.procuraTrabalhador(cpfTeste).getNometrabalhador() + " foi alterada para " + novaFuncao + " com sucesso!" );
                             break;
                         }
                     }
                 } else {
                     Trabalhador.procuraTrabalhador(cpfTrabalhador).alteraFuncao(novaFuncao);
+                    System.out.println("A funcao do trabalhador " + Trabalhador.procuraTrabalhador(cpfTrabalhador).getNometrabalhador() + " foi alterada para " + novaFuncao + " com sucesso!" );
                 }
                 break;
             }case 7:{
-                System.out.println("Digite o cpf do trabalhador");
+                System.out.println("Digite o cpf do trabalhador (no formato xxx.xxx.xxx-xx)");
                 sc.nextLine();
                 String cpfTrabalhador = sc.nextLine();
                 System.out.println("Digite o nome da trilha que vai ser associada ao trabalhador");
                 String novaTrilha = sc.nextLine();
-                Trabalhador.atribuiTrilha(Trabalhador.procuraTrabalhador(cpfTrabalhador),Modulo.procuraTrilha(novaTrilha));
+                if(Trabalhador.procuraTrabalhador(cpfTrabalhador)==null && Modulo.procuraTrilha(novaTrilha)==null){
+                    while (true) {
+                        System.out.println("Digite o cpf de um trabalhador válido (no formato xxx.xxx.xxx-xx)");
+                        String cpfTeste = sc.nextLine();
+                        if (Trabalhador.procuraTrabalhador(cpfTeste) != null) {
+                            cpfTrabalhador = cpfTeste;
+                            break;
+                        }
+                    }
+                    while (true) {
+                        System.out.println("Digite o nome de uma trilha válida");
+                        String trilha = sc.nextLine();
+                        if (Modulo.procuraTrilha(trilha) != null) {
+                            Trabalhador.atribuiTrilha(Trabalhador.procuraTrabalhador(cpfTrabalhador),Modulo.procuraTrilha(trilha));
+                            break;
+                        }
+                    }
+
+                }else if(Trabalhador.procuraTrabalhador(cpfTrabalhador)==null){
+                    while (true) {
+                        System.out.println("Digite o cpf de um trabalhador válido (no formato xxx.xxx.xxx-xx)");
+                        String cpfTeste = sc.nextLine();
+                        if (Trabalhador.procuraTrabalhador(cpfTeste) != null) {
+                            Trabalhador.atribuiTrilha(Trabalhador.procuraTrabalhador(cpfTeste),Modulo.procuraTrilha(novaTrilha));
+                            break;
+                        }
+                    }
+                }else if(Modulo.procuraTrilha(novaTrilha)==null){
+                    while (true) {
+                        System.out.println("Digite o nome de uma trilha válida");
+                        String trilha = sc.nextLine();
+                        if (Modulo.procuraTrilha(trilha) != null) {
+                            Trabalhador.atribuiTrilha(Trabalhador.procuraTrabalhador(cpfTrabalhador),Modulo.procuraTrilha(trilha));
+                            break;
+                        }
+                    }
+                }else{
+                    Trabalhador.atribuiTrilha(Trabalhador.procuraTrabalhador(cpfTrabalhador),Modulo.procuraTrilha(novaTrilha));
+                }
                 break;
             } case 8:{
                 a = false;

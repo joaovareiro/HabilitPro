@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Ocupacao {
     private String nomeOcupacao;
     private static int auxOcupacao = 0;

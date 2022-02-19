@@ -1,5 +1,4 @@
 import enums.Status;
-
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -21,7 +20,7 @@ public class MenuOperacional {
             op = sc.nextInt();
             switch (op){
                 case 1: {
-                    System.out.println("Digite o cpf do aluno");
+                    System.out.println("Digite o cpf do aluno (no formato xxx.xxx.xxx-xx)");
                     sc.nextLine();
                     String nomeAluno = sc.nextLine();
                     System.out.println("Digite o nome do modulo");
@@ -40,7 +39,7 @@ public class MenuOperacional {
                         break;
                 }
                 case 2: {
-                    System.out.println("Digite o cpf do aluno");
+                    System.out.println("Digite o cpf do aluno (no formato xxx.xxx.xxx-xx)");
                     sc.nextLine();
                     String cpfAluno = sc.nextLine();
                     System.out.println("Digite o nome do modulo");
@@ -50,21 +49,21 @@ public class MenuOperacional {
                     break;
                 }
                 case 3:{
-                    System.out.println("Digite o cpf do aluno");
+                    System.out.println("Digite o cpf do aluno (no formato xxx.xxx.xxx-xx)");
                     sc.nextLine();
                     String cpfAluno = sc.nextLine();
                     PerfilOperacional.getMediaTrabalhador(Trabalhador.procuraTrabalhador(cpfAluno));
                     break;
                 }
                 case 4:{
-                    System.out.println("Digite o cpf do aluno");
+                    System.out.println("Digite o cpf do aluno (no formato xxx.xxx.xxx-xx)");
                     sc.nextLine();
                     String nomeAluno = sc.nextLine();
                     PerfilOperacional.listaNotasMediaAluno(Objects.requireNonNull(Trabalhador.procuraTrabalhador(nomeAluno)));
                     break;
                 }
                 case 5:{
-                    System.out.println("Digite o cpf do aluno");
+                    System.out.println("Digite o cpf do aluno (no formato xxx.xxx.xxx-xx)");
                     sc.nextLine();
                     String nomeAluno = sc.nextLine();
                     PerfilOperacional.getTrilhasTrbalhador(Objects.requireNonNull(Trabalhador.procuraTrabalhador(nomeAluno)));
