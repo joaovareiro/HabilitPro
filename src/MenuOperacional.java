@@ -12,11 +12,12 @@ public class MenuOperacional {
             System.out.println("""
                     Selecione uma opcao:\s
                     1 - Avaliar um módulo de um aluno
-                    2 - Ver a nota de um aluno
-                    3 - Ver a media de um aluno
-                    4 - Ver todas as notas de um aluno e a sua média
-                    5 - Listar trilhas de um trabalhador
-                    6 - Sair""");
+                    2 - Avaliar trilha
+                    3 - Ver a nota de um aluno
+                    4 - Ver a media de um aluno
+                    5 - Ver todas as notas de um aluno e a sua média
+                    6 - Listar trilhas de um trabalhador
+                    7 - Sair""");
             op = sc.nextInt();
             switch (op){
                 case 1: {
@@ -35,6 +36,7 @@ public class MenuOperacional {
                                         System.out.println("Digite um modulo válido");
                                         String moduloTeste = sc.nextLine();
                                         if (Modulo.procuraModulo(Trabalhador.procuraTrabalhador(cpfTeste), moduloTeste) != null) {
+                                            Modulo.procuraModulo(Trabalhador.procuraTrabalhador(cpfAluno), moduloTeste).setStatusModulo();
                                             if (Modulo.procuraModulo(Objects.requireNonNull(Trabalhador.procuraTrabalhador(cpfTeste)), moduloTeste).getStatusModulo().equals(Status.CursoNaoIniciado)) {
                                                 System.out.println("O modelo não pode ser avaliado pois ele ainda não começou");
                                             } else if (Modulo.procuraModulo(Objects.requireNonNull(Trabalhador.procuraTrabalhador(cpfTeste)), moduloTeste).getStatusModulo().equals(Status.AvaliacaoFinalizada)) {
@@ -44,7 +46,12 @@ public class MenuOperacional {
                                             } else {
                                                 System.out.println("Digite a nota do modulo");
                                                 int nota = sc.nextInt();
-                                                PerfilOperacional.avaliaModulo(Trabalhador.procuraTrabalhador(cpfTeste), Modulo.procuraModulo((Trabalhador.procuraTrabalhador(cpfTeste)), moduloTeste), nota);
+                                                System.out.println("Digite a anotação do módulo");
+                                                sc.nextLine();
+                                                String anotacao = sc.nextLine();
+                                                PerfilOperacional.avaliaModulo(Trabalhador.procuraTrabalhador(cpfTeste), Modulo.procuraModulo((Trabalhador.procuraTrabalhador(cpfTeste)), moduloTeste), nota, anotacao);
+
+
                                             }
                                             break;
                                         }
@@ -55,11 +62,12 @@ public class MenuOperacional {
                             }
                         }
                         break;
-                    }else if (Modulo.procuraModulo(Trabalhador.procuraTrabalhador(cpfAluno), nomeModulo) == null) {
+                    } else if (Modulo.procuraModulo(Trabalhador.procuraTrabalhador(cpfAluno), nomeModulo) == null) {
                         while (true) {
                             System.out.println("Digite um modulo válido");
                             String moduloTeste = sc.nextLine();
                             if (Modulo.procuraModulo(Trabalhador.procuraTrabalhador(cpfAluno), moduloTeste) != null) {
+                                Modulo.procuraModulo(Trabalhador.procuraTrabalhador(cpfAluno), moduloTeste).setStatusModulo();
                                 if (Modulo.procuraModulo(Objects.requireNonNull(Trabalhador.procuraTrabalhador(cpfAluno)), moduloTeste).getStatusModulo().equals(Status.CursoNaoIniciado)) {
                                     System.out.println("O modelo não pode ser avaliado pois ele ainda não começou");
                                 } else if (Modulo.procuraModulo(Objects.requireNonNull(Trabalhador.procuraTrabalhador(cpfAluno)), moduloTeste).getStatusModulo().equals(Status.AvaliacaoFinalizada)) {
@@ -69,12 +77,16 @@ public class MenuOperacional {
                                 } else {
                                     System.out.println("Digite a nota do modulo");
                                     int nota = sc.nextInt();
-                                    PerfilOperacional.avaliaModulo(Trabalhador.procuraTrabalhador(cpfAluno), Modulo.procuraModulo((Trabalhador.procuraTrabalhador(cpfAluno)), moduloTeste), nota);
+                                    System.out.println("Digite a anotacao do modulo");
+                                    sc.nextLine();
+                                    String anotacao = sc.nextLine();
+                                    PerfilOperacional.avaliaModulo(Trabalhador.procuraTrabalhador(cpfAluno), Modulo.procuraModulo((Trabalhador.procuraTrabalhador(cpfAluno)), moduloTeste), nota, anotacao);
                                 }
                                 break;
                             }
                         }
-                    }else{
+                    } else {
+                        Modulo.procuraModulo(Trabalhador.procuraTrabalhador(cpfAluno), nomeModulo).setStatusModulo();
                         if (Modulo.procuraModulo(Objects.requireNonNull(Trabalhador.procuraTrabalhador(cpfAluno)), nomeModulo).getStatusModulo().equals(Status.CursoNaoIniciado)) {
                             System.out.println("O modelo não pode ser avaliado pois ele ainda não começou");
                         } else if (Modulo.procuraModulo(Objects.requireNonNull(Trabalhador.procuraTrabalhador(cpfAluno)), nomeModulo).getStatusModulo().equals(Status.AvaliacaoFinalizada)) {
@@ -84,12 +96,35 @@ public class MenuOperacional {
                         } else {
                             System.out.println("Digite a nota do modulo");
                             int nota = sc.nextInt();
-                            PerfilOperacional.avaliaModulo(Trabalhador.procuraTrabalhador(cpfAluno), Modulo.procuraModulo((Trabalhador.procuraTrabalhador(cpfAluno)), nomeModulo), nota);
+                            System.out.println("Digite a anotacao do modulo");
+                            sc.nextLine();
+                            String anotacao = sc.nextLine();
+                            PerfilOperacional.avaliaModulo(Trabalhador.procuraTrabalhador(cpfAluno), Modulo.procuraModulo((Trabalhador.procuraTrabalhador(cpfAluno)), nomeModulo), nota, anotacao);
                         }
                     }
                     break;
-                }
-                case 2: {
+                } case 2: {
+                    System.out.println("Digite o nome da trilha");
+                    sc.nextLine();
+                    String nomeTrilha = sc.nextLine();
+                    System.out.println("Digite o nivel de satisfação da trilha (deve ser um numero de 1 a 5)");
+                    int satisfacao = sc.nextInt();
+                    if(Modulo.procuraTrilha(nomeTrilha) == null){
+                        while (true) {
+                            System.out.println("Digite o nome de uma trilha válida");
+                            sc.nextLine();
+                            String trilhaTeste = sc.nextLine();
+                            if (Modulo.procuraTrilha(trilhaTeste) != null) {
+                                Modulo.procuraTrilha(trilhaTeste).setNivelSatisfacao(satisfacao);
+                                break;
+                            }
+                        }
+                    }else{
+                        Modulo.procuraTrilha(nomeTrilha).setNivelSatisfacao(satisfacao);
+                        break;
+                    }
+                    break;
+                } case 3: {
                     System.out.println("Digite o cpf do aluno (no formato xxx.xxx.xxx-xx)");
                     sc.nextLine();
                     String cpfAluno = sc.nextLine();
@@ -133,7 +168,7 @@ public class MenuOperacional {
                     }
                     break;
                 }
-            case 3:{
+            case 4:{
                 System.out.println("Digite o cpf do aluno (no formato xxx.xxx.xxx-xx)");
                 sc.nextLine();
                 String cpfAluno = sc.nextLine();
@@ -150,7 +185,7 @@ public class MenuOperacional {
                     PerfilOperacional.getMediaTrabalhador(Trabalhador.procuraTrabalhador(cpfAluno));
                 }
                 break;
-            }case 4:{
+            }case 5:{
                 System.out.println("Digite o cpf do aluno (no formato xxx.xxx.xxx-xx)");
                 sc.nextLine();
                 String cpfAluno = sc.nextLine();
@@ -168,7 +203,7 @@ public class MenuOperacional {
                     }
                 break;
             }
-            case 5:{
+            case 6:{
                 System.out.println("Digite o cpf do aluno (no formato xxx.xxx.xxx-xx)");
                 sc.nextLine();
                 String cpfAluno = sc.nextLine();
@@ -186,7 +221,7 @@ public class MenuOperacional {
                 }
                 break;
             }
-            case 6:{
+            case 7:{
                 a = false;
                 break;
             }

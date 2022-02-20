@@ -109,6 +109,14 @@ public class Modulo {
         }
     }
 
+    public static void atualizaTrilha(Modulo m, Trilha t){
+        for(Trabalhador trab : Trabalhador.listaTrabalhadores){
+            if(trab.getListaTrilhasTrabalhador().contains(t)){
+                    Trabalhador.atribuiModulo(trab,m);
+            }
+        }
+    }
+
     @Override
     public String toString() {
         return trilhaAssociada + " " + nomeModulo + " " +statusModulo + " " + dataInicioModulo + " " + dataInicioAvaliacao + " " + dataFimAvalicao;

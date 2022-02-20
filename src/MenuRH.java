@@ -15,8 +15,10 @@ public class MenuRH {
                     3 - Listar todos os modulos de uma trilha
                     4 - Listar todos os trabalhadores do sistema
                     5 - Listar as notas de um aluno e sua média
-                    6 - Ver o log de um trabalhador
-                    7 - Sair""");
+                    6 - Listar as anotacoes de um aluno
+                    7 - Ver o log de um trabalhador
+                    8 - Ver o nivel de satisfação de uma trilha
+                    9 - Sair""");
             op = sc.nextInt();
             switch (op){
                 case 1: {
@@ -56,11 +58,9 @@ public class MenuRH {
                         }
                     }else{
                         PerfilAdmin.listaModulosTrilha(Objects.requireNonNull(Modulo.procuraTrilha(nomeTrilha)));
-                        break;
                     }
                     break;
-                }
-                case 4:{
+                } case 4:{
                     PerfilAdmin.listaTrabalhadores();
                     break;
                 }
@@ -68,16 +68,16 @@ public class MenuRH {
                     System.out.println("Digite o cpf do trabalhador (no formato xxx.xxx.xxx-xx) ");
                     sc.nextLine();
                     String cpfEntrada = sc.next();
-                    if(Trabalhador.procuraTrabalhador(cpfEntrada) == null){
+                    if (Trabalhador.procuraTrabalhador(cpfEntrada) == null) {
                         while (true) {
                             System.out.println("Por favor, digite o cpf de um trabalhador válido (no formato xxx.xxx.xxx-xx)");
                             String cpfTeste = sc.nextLine();
-                            if (Trabalhador.procuraTrabalhador(cpfTeste) != null ) {
+                            if (Trabalhador.procuraTrabalhador(cpfTeste) != null) {
                                 PerfilOperacional.listaNotasMediaAluno(Objects.requireNonNull(Trabalhador.procuraTrabalhador(cpfTeste)));
                                 break;
                             }
                         }
-                    }else{
+                    } else {
                         PerfilOperacional.listaNotasMediaAluno(Objects.requireNonNull(Trabalhador.procuraTrabalhador(cpfEntrada)));
                     }
                     break;
@@ -95,10 +95,54 @@ public class MenuRH {
                             }
                         }
                     }else{
+                        PerfilOperacional.listaAnotacoesAluno(Objects.requireNonNull(Trabalhador.procuraTrabalhador(cpfEntrada)));
+                    }
+                    break;
+                } case 7: {
+                    System.out.println("Digite o cpf do trabalhador (no formato xxx.xxx.xxx-xx) ");
+                    sc.nextLine();
+                    String cpfEntrada = sc.next();
+                    if (Trabalhador.procuraTrabalhador(cpfEntrada) == null) {
+                        while (true) {
+                            System.out.println("Digite o cpf de um trabalhador válido (no formato xxx.xxx.xxx-xx)");
+                            String cpfTeste = sc.nextLine();
+                            if (Trabalhador.procuraTrabalhador(cpfTeste) != null) {
+                                PerfilAdmin.logTrabalhador(Objects.requireNonNull(Trabalhador.procuraTrabalhador(cpfTeste)));
+                                break;
+                            }
+                        }
+                    } else {
                         PerfilAdmin.logTrabalhador(Objects.requireNonNull(Trabalhador.procuraTrabalhador(cpfEntrada)));
                     }
+                    break;
+                } case 8: {
+                    System.out.println("Digite o nome da trilha");
+                    sc.nextLine();
+                    String nomeTrilha = sc.nextLine();
+                    if(Modulo.procuraTrilha(nomeTrilha) == null){
+                        while (true) {
+                            System.out.println("Digite o nome de uma trilha válida");
+                            String trilhaTeste = sc.nextLine();
+                            if (Modulo.procuraTrilha(trilhaTeste) != null) {
+                                if(Modulo.procuraTrilha(trilhaTeste).getNivelSatisfacao()>0) {
+                                    System.out.println("O nível de satisfação dessa trilha é: " + Modulo.procuraTrilha(trilhaTeste).getNivelSatisfacao());
+                                    break;
+                                }else{
+                                    System.out.println("Essa trilha não foi avaliada ainda");
+                                    break;
+                                }
 
-                } case 7:{
+                            }
+                        }
+                    }else{
+                        if(Modulo.procuraTrilha(nomeTrilha).getNivelSatisfacao()>0) {
+                            System.out.println("O nível de satisfação dessa trilha é: " + Modulo.procuraTrilha(nomeTrilha).getNivelSatisfacao());
+                        }else{
+                            System.out.println("Essa trilha não foi avaliada ainda");
+                        }
+                    }
+                    break;
+                } case 9: {
                     a = false;
                     break;
                 }

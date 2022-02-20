@@ -14,6 +14,7 @@ public class Trabalhador {
     private ArrayList<Trilha> listaTrilhasTrabalhador = new ArrayList<Trilha>();
     static ArrayList<Trabalhador> listaTrabalhadores = new ArrayList<Trabalhador>();
     private Map<Modulo, Integer> atribuicaoModulo = new HashMap<Modulo, Integer>();
+    private Map<Modulo, String> atribuicaoAnotacao = new HashMap<Modulo, String>();
     private ArrayList<String>logTrabalhador = new ArrayList<String>();
 
     public Trabalhador(String nometrabalhador, String cpfTrabalhador, EmpresaCliente empresaAssociada, String nomeSetor, String nomeFuncao) {
@@ -33,17 +34,21 @@ public class Trabalhador {
     }
 
     public static void atribuiTrilha(Trabalhador trab, Trilha trilha){
-        for(Modulo m : trilha.getListaModulos()){
-            atribuiModulo(trab,m);
-        }
-        if(!trab.getListaTrilhasTrabalhador().contains(trilha)) {
-            trab.getListaTrilhasTrabalhador().add(trilha);
-            String atribuicao = "Teve a trilha " + trilha.getNomeTrilha() + " atribuida ao trabalhador";
-            trab.logTrabalhador.add(atribuicao);
+        if(trilha.getListaModulos().size()>0){
+            for(Modulo m : trilha.getListaModulos()){
+                atribuiModulo(trab,m);
+            }
+            if(!trab.getListaTrilhasTrabalhador().contains(trilha)) {
+                trab.getListaTrilhasTrabalhador().add(trilha);
+                String atribuicao = "Teve a trilha " + trilha.getNomeTrilha() + " atribuida ao trabalhador";
+                trab.logTrabalhador.add(atribuicao);
+            }else{
+                System.out.println("Essa trilha já foi atribuida ao trabalhador");
+            }
         }else{
-            System.out.println("Essa trilha já foi atribuida ao trabalhador");
+            System.out.println("Essa trilha não possui módulos, por favor atribua um módulo a ela");
         }
-    }
+        }
 
     public ArrayList<Trilha> getListaTrilhasTrabalhador() {
         return listaTrilhasTrabalhador;
@@ -51,12 +56,21 @@ public class Trabalhador {
 
     public static void atribuiModulo(Trabalhador t, Modulo m){
         t.atribuicaoModulo.put(m,null);
+        t.atribuicaoAnotacao.put(m,null);
     }
 
     public static void setNotaModulo(Trabalhador t, Modulo m, int notaModulo) {
         t.atribuicaoModulo.put(m,notaModulo);
         String atribuicaoNota = "Tirou a nota " + notaModulo + " no modulo " + m.getNomeModulo();
         t.logTrabalhador.add(atribuicaoNota);
+    }
+
+
+
+    public static void setAnotacaoModulo(Trabalhador t, Modulo m, String anotacao){
+        t.atribuicaoAnotacao.put(m,anotacao);
+        String atribuicaoAnotacao = "Foi atribuido o seguinte comentário \"" + anotacao + "\" no modulo " + m.getNomeModulo();
+        t.logTrabalhador.add(atribuicaoAnotacao);
     }
 
     public String getNometrabalhador() {
@@ -128,6 +142,10 @@ public class Trabalhador {
                 cpfIncorreto = true;
             }
         }
+    }
+
+    public Map<Modulo, String> getAtribuicaoAnotacao() {
+        return atribuicaoAnotacao;
     }
 
     @Override

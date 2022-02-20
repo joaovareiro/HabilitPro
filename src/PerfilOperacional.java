@@ -8,17 +8,19 @@ public class PerfilOperacional extends Usuario{
         super(nomeUsuario, cpfUsuario, emailUsuario, senhaUsuario);
     }
 
-    public static void avaliaModulo(Trabalhador t, Modulo m, int notaModulo) {
+    public static void avaliaModulo(Trabalhador t, Modulo m, int notaModulo, String anotacao) {
         Scanner sc = new Scanner(System.in);
         boolean notaInvalida = true;
         if (notaModulo >= 1 && notaModulo <=5) {
             Trabalhador.setNotaModulo(t,m,notaModulo);
+            Trabalhador.setAnotacaoModulo(t,m,anotacao);
         }else{
             while(notaInvalida){
                 System.out.println("Digite uma nota de 1 a 5");
                 int notaTeste = sc.nextInt();
                 if (notaTeste >= 1 && notaTeste <=5) {
                     Trabalhador.setNotaModulo(t,m,notaModulo);
+                    Trabalhador.setAnotacaoModulo(t,m,anotacao);
                     notaInvalida = false;
                 }
             }
@@ -63,6 +65,12 @@ public class PerfilOperacional extends Usuario{
             System.out.println("Modulo " + a.getKey().getNomeModulo() + " Nota " + a.getValue());
         }
         getMediaTrabalhador(t);
+    }
+
+    public static void listaAnotacoesAluno(Trabalhador t){
+        for(var a : t.getAtribuicaoAnotacao().entrySet()){
+            System.out.println("Modulo " + a.getKey().getNomeModulo() + " Anotação \"" + a.getValue() +"\"");
+        }
     }
 
 }

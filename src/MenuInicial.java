@@ -16,10 +16,10 @@ public class MenuInicial {
         Trabalhador trab1 = new Trabalhador("Rogerio","456.133.789-45",m1,"TI","Estagiario");
         Trabalhador trab2 = new Trabalhador("Claudio","411.422.780-15",f1,"TI","Junior");
         Trabalhador.atribuiTrilha(trab1,t1);
-        Trabalhador.atribuiTrilha(trab1,t2);
+        Trabalhador.atribuiTrilha(trab2,t2);
         int op;
         System.out.println(t1.getNomeTrilha());
-        MenuRH.MenuRH(a1);
+        MenuOperacional.MenuOperacional(a1);
         while (true){
             System.out.println("-------HabilitPro-------");
             System.out.println("""
