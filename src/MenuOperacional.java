@@ -50,8 +50,6 @@ public class MenuOperacional {
                                                 sc.nextLine();
                                                 String anotacao = sc.nextLine();
                                                 PerfilOperacional.avaliaModulo(Trabalhador.procuraTrabalhador(cpfTeste), Modulo.procuraModulo((Trabalhador.procuraTrabalhador(cpfTeste)), moduloTeste), nota, anotacao);
-
-
                                             }
                                             break;
                                         }

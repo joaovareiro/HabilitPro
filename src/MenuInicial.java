@@ -19,7 +19,7 @@ public class MenuInicial {
         Trabalhador.atribuiTrilha(trab2,t2);
         int op;
         System.out.println(t1.getNomeTrilha());
-        MenuOperacional.MenuOperacional(a1);
+        MenuAdmin.MenuAdmin(a1);
         while (true){
             System.out.println("-------HabilitPro-------");
             System.out.println("""

@@ -63,11 +63,35 @@ public class MenuAdmin {
                     Trilha t1 = new Trilha(EmpresaCliente.procuraEmpresa(nomeEmpresa),nomeOcupacao,anotacoes);
                     EmpresaCliente.procuraEmpresa(nomeEmpresa).addTrilha(t1);
                     System.out.println("A trilha " + t1.getNomeTrilha() + " foi criada com sucesso!");
+                    System.out.println("A trilha deve possuir pelo menos um módulo");
+                    while (true){
+                        Modulo novo = PerfilAdmin.criaModulos(t1);
+                        System.out.println("""
+                                       Gostaria de adicionar mais um módulo a essa trilha?\s
+                                        1 - Sim
+                                        2 - Não""");
+                        int op1 = sc.nextInt();
+                        if(op1 == 2){
+                            break;
+                        }
+                    }
                 }else{
                     EmpresaCliente emp1 = Trabalhador.solicitarEmpresa();
                     Trilha t1 = new Trilha(emp1,nomeOcupacao,anotacoes);
                     emp1.addTrilha(t1);
                     System.out.println("A trilha " + t1.getNomeTrilha() + " foi criada com sucesso!");
+                    System.out.println("A trilha deve possuir pelo menos um módulo");
+                    while (true){
+                        Modulo novo = PerfilAdmin.criaModulos(t1);
+                        System.out.println("""
+                                       Gostaria de adicionar mais um módulo a essa trilha?\s
+                                        1 - Sim
+                                        2 - Não""");
+                        int op1 = sc.nextInt();
+                        if(op1 == 2){
+                            break;
+                        }
+                    }
                 }
                 break;
             }
@@ -75,32 +99,17 @@ public class MenuAdmin {
                 System.out.println("Digite o nome da Trilha");
                 sc.nextLine();
                 String nomeTrilha = sc.nextLine();
-                System.out.println("Digite o nome do modulo");
-                String nomeModulo = sc.nextLine();
-                System.out.println("Digite as habilidades que vao ser trabalhadas nesse modulo");
-                String habilidades = sc.nextLine();
-                System.out.println("Digite a descricao da tarefa de avaliacao do modulo");
-                String avalicao = sc.nextLine();
-                System.out.println("Digite as anotações do modulo");
-                String anotacoes = sc.nextLine();
-                System.out.println("Digite a data de inicio do modulo (no formato dd/mm/aaaa)");
-                String dataInicioModulo = sc.nextLine();
-                System.out.println("Digite a data de inicio da avaliacao do modulo (no formato dd/mm/aaaa)");
-                String dataInicioAvaliacao = sc.nextLine();
-                System.out.println("Digite a data do fim da avaliacao do modulo(no formato dd/mm/aaaa)");
-                String dataFimAvaliacao = sc.nextLine();
                 if(Modulo.procuraTrilha(nomeTrilha)!=null) {
-                    Modulo m1 = new Modulo(Modulo.procuraTrilha(nomeTrilha), nomeModulo, habilidades, avalicao, nomeModulo, dataInicioModulo, dataInicioAvaliacao, dataFimAvaliacao);
+                    Modulo m1 = PerfilAdmin.criaModulos(Modulo.procuraTrilha(nomeTrilha));
                     System.out.println("O modulo " + m1.getNomeModulo() + " foi criado com sucesso!");
                 }else{
                     boolean repeticao = true;
                     while(repeticao){
-                            Modulo m1 = new Modulo(Trilha.solicitarTrilha(),nomeModulo, habilidades, avalicao, nomeModulo, dataInicioModulo, dataInicioAvaliacao, dataFimAvaliacao);
+                            Modulo m1 = PerfilAdmin.criaModulos(Trilha.solicitarTrilha());
                             System.out.println("O modulo " + m1.getNomeModulo() + " foi criado com sucesso!");
                             repeticao = false;
                             }
                         }
-
                 break;
             }
             case 4:{
