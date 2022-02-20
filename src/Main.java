@@ -1,7 +1,10 @@
 import java.util.Scanner;
 
-public class MenuInicial {
+public class Main {
     public static void main(String[] args) {
+        //Conta admin -> email:admin@gmail.com  senha:senhaadmin123
+        //Conta operacional -> email: operacional@gmail.com  senha:senhaoperacional123
+        //Conta RH -> email:rh@gmail.com  senha:senharh123
         Scanner sc = new Scanner(System.in);
         EmpresaCliente m1 = new EmpresaCliente( "MatrizTeste",null,"00.790.711/0001-07","Porto Alegre","RS","Sul","Equipamentos Eletricos");
         EmpresaCliente f1 = new EmpresaCliente("MatrizTeste","FilialTeste","00.790.711/0002-07","Porto Alegre","RS","Sul","Equipamentos Eletricos");
