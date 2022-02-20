@@ -61,7 +61,6 @@ public class MenuAdmin {
                 String anotacoes = sc.nextLine();
                 if(EmpresaCliente.procuraEmpresa(nomeEmpresa)!=null){
                     Trilha t1 = new Trilha(EmpresaCliente.procuraEmpresa(nomeEmpresa),nomeOcupacao,anotacoes);
-                    EmpresaCliente.procuraEmpresa(nomeEmpresa).addTrilha(t1);
                     System.out.println("A trilha " + t1.getNomeTrilha() + " foi criada com sucesso!");
                     System.out.println("A trilha deve possuir pelo menos um módulo");
                     while (true){
@@ -78,7 +77,6 @@ public class MenuAdmin {
                 }else{
                     EmpresaCliente emp1 = Trabalhador.solicitarEmpresa();
                     Trilha t1 = new Trilha(emp1,nomeOcupacao,anotacoes);
-                    emp1.addTrilha(t1);
                     System.out.println("A trilha " + t1.getNomeTrilha() + " foi criada com sucesso!");
                     System.out.println("A trilha deve possuir pelo menos um módulo");
                     while (true){

@@ -6,8 +6,10 @@ public class Main {
         //Conta operacional -> email: operacional@gmail.com  senha:senhaoperacional123
         //Conta RH -> email:rh@gmail.com  senha:senharh123
         Scanner sc = new Scanner(System.in);
-        EmpresaCliente m1 = new EmpresaCliente( "MatrizTeste",null,"00.790.711/0001-07","Porto Alegre","RS","Sul","Equipamentos Eletricos");
-        EmpresaCliente f1 = new EmpresaCliente("MatrizTeste","FilialTeste","00.790.711/0002-07","Porto Alegre","RS","Sul","Equipamentos Eletricos");
+        EmpresaCliente.regional();
+        EmpresaCliente.segmento();
+        EmpresaCliente m1 = new EmpresaCliente( "MatrizTeste",null,"00.790.711/0001-07","Porto Alegre","RS","Sul","Celulose e Papel");
+        EmpresaCliente f1 = new EmpresaCliente("MatrizTeste","FilialTeste","00.790.711/0002-07","Porto Alegre","RS","Sul","Celulose e Papel");
         Trilha t1 = new Trilha(f1,"Programação","Trilha para aprender lógica de programação");
         Trilha t2 = new Trilha(m1,"Programação","Trilha para aprender OO");
         Modulo mod11 = new Modulo(t1,"Logica 1","Lógica de programação","Atividade do Trello","Este modulo tem como o objetivo o aprendizado de if e else","15/02/2022","17/02/2022","15/03/2022");
@@ -21,7 +23,6 @@ public class Main {
         Trabalhador.atribuiTrilha(trab1,t1);
         Trabalhador.atribuiTrilha(trab2,t2);
         int op;
-        System.out.println(t1.getNomeTrilha());
         while (true){
             System.out.println("-------HabilitPro-------");
             System.out.println("""
