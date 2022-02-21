@@ -105,6 +105,8 @@ public class MenuOperacional {
                     System.out.println("Digite o nome da trilha");
                     sc.nextLine();
                     String nomeTrilha = sc.nextLine();
+                    System.out.println("Digite as anotações da trilha");
+                    String anotacoes = sc.nextLine();
                     System.out.println("Digite o nivel de satisfação da trilha (deve ser um numero de 1 a 5)");
                     int satisfacao = sc.nextInt();
                     if(Modulo.procuraTrilha(nomeTrilha) == null){
@@ -114,11 +116,13 @@ public class MenuOperacional {
                             String trilhaTeste = sc.nextLine();
                             if (Modulo.procuraTrilha(trilhaTeste) != null) {
                                 Modulo.procuraTrilha(trilhaTeste).setNivelSatisfacao(satisfacao);
+                                Modulo.procuraTrilha(trilhaTeste).setAnotacoesTrilha(anotacoes);
                                 break;
                             }
                         }
                     }else{
                         Modulo.procuraTrilha(nomeTrilha).setNivelSatisfacao(satisfacao);
+                        Modulo.procuraTrilha(nomeTrilha).setAnotacoesTrilha(anotacoes);
                         break;
                     }
                     break;

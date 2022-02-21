@@ -10,8 +10,8 @@ public class Main {
         EmpresaCliente.segmento();
         EmpresaCliente m1 = new EmpresaCliente( "MatrizTeste",null,"00.790.711/0001-07","Porto Alegre","RS","Sul","Celulose e Papel");
         EmpresaCliente f1 = new EmpresaCliente("MatrizTeste","FilialTeste","00.790.711/0002-07","Porto Alegre","RS","Sul","Celulose e Papel");
-        Trilha t1 = new Trilha(f1,"Programação","Trilha para aprender lógica de programação");
-        Trilha t2 = new Trilha(m1,"Programação","Trilha para aprender OO");
+        Trilha t1 = new Trilha(f1,"Programação");
+        Trilha t2 = new Trilha(m1,"Programação");
         Modulo mod11 = new Modulo(t1,"Logica 1","Lógica de programação","Atividade do Trello","Este modulo tem como o objetivo o aprendizado de if e else","15/02/2022","17/02/2022","15/03/2022");
         Modulo mod12 = new Modulo(t1,"Logica 2","Lógica de programação","Atividade do Trello","Este modulo tem como o objetivo o aprendizado de for e while","15/02/2022","17/02/2022","15/03/2022");
         Modulo mod21 = new Modulo(t2,"Logica 1","Lógica de programação","Atividade do Trello","Este modulo tem como o objetivo o aprendizado de if e else","15/02/2022","17/02/2022","15/03/2022");
@@ -22,6 +22,7 @@ public class Main {
         Trabalhador trab2 = new Trabalhador("Claudio","411.422.780-15",f1,"TI","Junior");
         Trabalhador.atribuiTrilha(trab1,t1);
         Trabalhador.atribuiTrilha(trab2,t2);
+        System.out.println(t1.getNomeTrilha());
         int op;
         while (true){
             System.out.println("-------HabilitPro-------");

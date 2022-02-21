@@ -17,7 +17,7 @@ public class MenuRH {
                     5 - Listar as notas de um aluno e sua média
                     6 - Listar as anotacoes de um aluno
                     7 - Ver o log de um trabalhador
-                    8 - Ver o nivel de satisfação de uma trilha
+                    8 - Ver o nivel de satisfação de uma trilha e suas anotações
                     9 - Sair""");
             op = sc.nextInt();
             switch (op){
@@ -126,6 +126,7 @@ public class MenuRH {
                             if (Modulo.procuraTrilha(trilhaTeste) != null) {
                                 if(Modulo.procuraTrilha(trilhaTeste).getNivelSatisfacao()>0) {
                                     System.out.println("O nível de satisfação dessa trilha é: " + Modulo.procuraTrilha(trilhaTeste).getNivelSatisfacao());
+                                    System.out.println("As anotações dessa trilha foram " + "\"" + Modulo.procuraTrilha(trilhaTeste).getAnotacoesTrilha() + "\"");
                                     break;
                                 }else{
                                     System.out.println("Essa trilha não foi avaliada ainda");
@@ -137,6 +138,7 @@ public class MenuRH {
                     }else{
                         if(Modulo.procuraTrilha(nomeTrilha).getNivelSatisfacao()>0) {
                             System.out.println("O nível de satisfação dessa trilha é: " + Modulo.procuraTrilha(nomeTrilha).getNivelSatisfacao());
+                            System.out.println("As anotações dessa trilha foram " + "\"" + Modulo.procuraTrilha(nomeTrilha).getAnotacoesTrilha() + "\"");
                         }else{
                             System.out.println("Essa trilha não foi avaliada ainda");
                         }
