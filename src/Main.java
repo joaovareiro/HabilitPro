@@ -22,7 +22,6 @@ public class Main {
         Trabalhador trab2 = new Trabalhador("Claudio","411.422.780-15",f1,"TI","Junior");
         Trabalhador.atribuiTrilha(trab1,t1);
         Trabalhador.atribuiTrilha(trab2,t2);
-        System.out.println(t1.getNomeTrilha());
         int op;
         while (true){
             System.out.println("-------HabilitPro-------");
